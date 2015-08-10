@@ -5,17 +5,18 @@ Allgemeines
 * Statisch gelinkte binaries
 * Besonderers gut für Server
 * Sehr schneller Build
+* Dynamische Speicherverwaltung
 * Build + Tests tool included
 
 Angenehme Syntax
 -----------------
-Sehr gewohnt, aber vereinfacht
-* Sparsam: Keine Klammern, kein ';'
+* Sehr gewohnt, aber vereinfacht
+* Sparsam: Keine Klammern, kein `;`
 * Public Bezeichner werden groß geschrieben
-* := initialisiert und deklariert eine Variable
-* mächtiger 'for' loop für alle Schleifentypen
-* if mit Initialisierung
-* mehrere rückgabewerte
+* `:=` initialisiert und deklariert eine Variable
+* Mächtiger `for` loop für alle Schleifentypen
+* `if` mit Initialisierung
+* Mehrere Rückgabewerte
 
 ```
 package main
@@ -58,12 +59,11 @@ Nutzung im Code über letzten Pfadteil:
 web.Router
 ```
 
-defer
--------
+Verzögerte Ausführung `defer`
+------------------------------
 defer statements werden am Ende der funktion ausgeführt (== finally{})
 
 ```
-
 file, err := os.Open(srcName)
 if err != nil {
     return
@@ -78,8 +78,8 @@ Typsystem
 * Build in maps und slices
 * Interfaces und Ducktyping
 
-structs
----------
+`structs`
+----------
 ```
 type User struct {
 	UserName  string     `json:"userName"`
@@ -91,7 +91,7 @@ user := User{UserName: "Ben", NickName: "Utzer"}
 
 Unterstützung für Delegation und Embedding.
 
-oop
+Objecte
 ---------
 Funktionen können auf eigenen Datentypen definiert werden.
 
@@ -105,17 +105,28 @@ user.CallUser("hör gut zu!")
 ```
 
 
-error handling
----------------
-Fehlerhandling läuft meist über Rückgabewert,
-es gibt aber auch ein Equivalent zu Exceptions.
+Fehlerbehandlung
+-----------------
+Fehlerhandling läuft meist über Rückgabewert.
 ```
 if err := machEtwas(); err != nil {
     // handle error
 }
 ```
 
-go routinen
+Es gibt aber auch ein Equivalent zu Exceptions.
+```
+func travel() {
+	defer func() {
+	    if r := recover(); r != nil {
+            fmt.Println(r, "dont't panic!", )
+        }
+	}()
+	panic("I lost my towel")
+}
+```
+
+`go` routinen
 -------------
 Leichtgewichtige co-routinen, die im Hintergrund laufen.
 ```
@@ -124,7 +135,7 @@ go {
 }
 ```
 
-channel
+`channel`
 ---------
 Channel sind Datenstrukturen zur sicheren Kommunikation bei paralleler Verarbeitung. 
 ```
