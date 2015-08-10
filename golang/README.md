@@ -91,20 +91,6 @@ user := User{UserName: "Ben", NickName: "Utzer"}
 
 Unterstützung für Delegation und Embedding.
 
-Objecte
----------
-Funktionen können auf eigenen Datentypen definiert werden.
-
-```
-func (user *User) CallUser(msg string) {
-    fmt.Printf("Hallo %v: %v", user.NickName, msg)
-}
-
-user := User{UserName: "Ben", NickName: "Utzer"}
-user.CallUser("hör gut zu!")
-```
-
-
 Fehlerbehandlung
 -----------------
 Fehlerhandling läuft meist über Rückgabewert.
@@ -124,6 +110,19 @@ func travel() {
 	}()
 	panic("I lost my towel")
 }
+```
+
+Objecte
+---------
+Funktionen können auf eigenen Datentypen definiert werden.
+
+```
+func (user *User) CallUser(msg string) {
+    fmt.Printf("Hallo %v: %v", user.NickName, msg)
+}
+
+user := User{UserName: "Ben", NickName: "Utzer"}
+user.CallUser("hör gut zu!")
 ```
 
 `go` routinen
