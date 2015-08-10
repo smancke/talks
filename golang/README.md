@@ -18,7 +18,7 @@ Angenehme Syntax
 * `if` mit Initialisierung
 * Mehrere Rückgabewerte
 
-```
+```go
 package main
 
 import (
@@ -41,7 +41,7 @@ Packages
 Einfaches gutes Package Konzept
 
 Deklaration über:
-```
+```go
 package mypackage
 ```
 
@@ -50,12 +50,12 @@ package mypackage
 
 
 Source Code Dependencies:
-```
+```go
 import  "github.com/gocraft/web"
 ```
 
 Nutzung im Code über letzten Pfadteil:
-```
+```go
 web.Router
 ```
 
@@ -63,7 +63,7 @@ Verzögerte Ausführung `defer`
 ------------------------------
 defer statements werden am Ende der funktion ausgeführt (== finally{})
 
-```
+```go
 file, err := os.Open(srcName)
 if err != nil {
     return
@@ -80,7 +80,7 @@ Typsystem
 
 `structs`
 ----------
-```
+```go
 type User struct {
 	UserName  string     `json:"userName"`
 	NickName  string     `json:"nickName"`
@@ -94,14 +94,14 @@ Unterstützung für Delegation und Embedding.
 Fehlerbehandlung
 -----------------
 Fehlerhandling läuft meist über Rückgabewert.
-```
+```go
 if err := machEtwas(); err != nil {
     // handle error
 }
 ```
 
 Es gibt aber auch ein Equivalent zu Exceptions.
-```
+```go
 func travel() {
 	defer func() {
 	    if r := recover(); r != nil {
@@ -116,7 +116,7 @@ Objecte
 ---------
 Funktionen können auf eigenen Datentypen definiert werden.
 
-```
+```go
 func (user *User) CallUser(msg string) {
     fmt.Printf("Hallo %v: %v", user.NickName, msg)
 }
@@ -128,7 +128,7 @@ user.CallUser("hör gut zu!")
 `go` routinen
 -------------
 Leichtgewichtige co-routinen, die im Hintergrund laufen.
-```
+```go
 go {
     doSomething()
 }
@@ -137,7 +137,7 @@ go {
 `channel`
 ---------
 Channel sind Datenstrukturen zur sicheren Kommunikation bei paralleler Verarbeitung. 
-```
+```go
 func waitForTermination(callback func()) {
 	sigc := make(chan os.Signal)
 	signal.Notify(sigc, syscall.SIGINT, syscall.SIGTERM)
