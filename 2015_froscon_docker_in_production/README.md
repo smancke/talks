@@ -98,24 +98,92 @@ Deployment:
 
 Das einfachste Tool, das die Anforderungen unterstützt ohne zusätzliche komplexität hinzu zu bringen.
 
-Buzzerdeal.de
+Buzzerdeal.de - Architektur
+=============================
+Viele kleine Services und bestehende Komponenten:
+
+![Buzzerdeal.de - Architektur](images/buzzerdeal_architecture.png)
+
+
+gig - Kommandos
 =================
+Übersicht der `gig` Kommandos:
 
-Architektur
---------------
+    Usage: gig COMMAND [service..]
+    Calling comands without arguments means all services.
+    
+        status (default)    shows the running status of each container
+        start               start the existing containers, if already up
+        stop                stop containers
+        restart             stop containers and then start them
+        restartrm           stop containers, remove them and then start again
+        update              rm and start container if a newer image exists
+                               start container if not running
+        rollout             pull images and do update
+        rm                  remove the containers
+        ps                  execute ps for the containers
+        versions            shows json of the image versions and *.version
+        tag -t <tag>        tags the images with the supplied version
+        pull                pulls the images from the registry
+        push                push the images to the registry
+        save-logs -d <dir>  save the container logs to the target dir
+        help                print the list of commands
 
-TODO!!
+gig Config Beispiel
+===========================
+    nginxBackend:
+      image: $DOCKER_REGISTRY/nginx-backend:$TAG_NGINX_BACKEND
+      ports:
+        - "$ADMIN_IP:80:80"
+        - "$ADMIN_IP:443:443"
+      volumes:
+        - nginx-backend/ssl/server.key:/etc/nginx/server.key
+        - nginx-backend/ssl/server.crt:/etc/nginx/server.crt
+    
+    piwik:
+      image: $DOCKER_REGISTRY/piwik:$TAG_PIWIK
+      links:
+        - "piwikmysql:db"
+      ports:
+        - "$PRIVATE_IP:4200:80"
+      volumes:
+        - piwik/config/config.ini.php:/analytics/config/config.ini.php
+    
+    piwikmysql:
+      image: $DOCKER_REGISTRY/mysql:$TAG_MYSQL
+      volumes:
+        - $DATA_DIR/piwikmysql:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD_PIWIK
 
-gig
-=================
+
 
 Architektur und Routing
 =======================
 * Portvergabe (Nutzung des docker interfaces als localhost)
 * Nginx als Router
 
-Konfiguration unterschiedlicher Environments
+Environments
 =================
+
+Ziel:
+-------
+
+Umgebungen unterscheiden sich nur durch wenige Konfigurationsparameter und Dateien.
+
+Lösung:
+--------
+
+- Die Plattform-Beschreibung ist per Shell-Variablen konfigurierbar.
+- Die Config-Files aller Dienste sind mit Umgebungsvariablen überschreibbar
+- Von außen wird nur gesetzt, was in den Umgebungen unterschiedlich ist. Alles andere wird _hart_ konfiguriert
+
+Beispiel:
+
+    org.osiam.auth-server.db.url=jdbc:mysql://db:3306/osiam
+    org.osiam.auth-server.db.username=root
+    org.osiam.auth-server.db.password=${MYSQL_ROOT_PASSWORD_OSIAM}
+
 
 Lokale Entwicklung
 ====================
@@ -124,11 +192,14 @@ Lokale Entwicklung
 Base images selber bauen
 ====================
 Warum eigene Images?
+
 - Kontrolle von Upstream Änderungen
 - Aufbau der eigenen Images auf wenige Base-Images
 - Security: Vertauen ist gut - eigene Images sind besser!
 
-TODO: Image Hierarchie Buzzerdeal
+Buzzerdeal Image Hierarchie
+-----------------------------
+![Buzzerdeal Images](images/tron_images.png)
 
 Versionierung
 =================
@@ -154,14 +225,16 @@ Jeder Build legt eine Textdatei: `<imagename>.version` im Image ab:
 
 Mit `gig versions` werden alle Version-Files eines Images ausgegeben:
 
-    "gig_nginxBackend": {
+    "tron_nginxBackend": {
       "image": "tron-registry.lan.tarent.de/nginx-backend:latest",
       "imageHash": "de1ddbe6b6d1",
       "versionFiles": [
-        "nginx-backend,2015-05-13:09:09:43,commit d7..23,jenkins-nginx_backend-150",
-        "nginx,2015-05-13:09:08:49,commit c2..70,jenkins-nginx_baseimage-71",
-        "ubuntu-baseimage,2015-05-12:23:00:48,commit d3..5a,jenkins-ubuntu_baseimage-58"
-      ]},
+        "nginx-backend,2015-05-13:09:09:43,d04f6f56,nginx_backend-150",
+        "nginx,2015-05-13:09:08:49,c20bbb7e,nginx_baseimage-71",
+        "ubuntu-baseimage,2015-05-12:23:00:48,d351f4e4,ubuntu_baseimage-58"
+    ]},
+    "tron_nginx": {
+      ...
 
 
 Logging & Monitoring
