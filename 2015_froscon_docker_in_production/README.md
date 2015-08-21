@@ -132,13 +132,36 @@ TODO: Image Hierarchie Buzzerdeal
 
 Versionierung
 =================
-- Builds überschreiben immer den Stand `latest` -> Das spart Plattenplatz!
-- Eine Version, die ausgerollt werden soll bekommt ein Tag.
-- Branches vermeiden (Lieber schnell vorwärts rollen und toggeln)
+- Wie kann ich den Source-Code-Stand eines Containers finden?
+- Auf welche Images baut mein Image auf?
+- Wie kann vermeiden, dass sich zu viele Image-Versionen ansammeln?
 
-Version Files
------------------
-TODO: Gig version ausgabe
+Way to go:
+-----------
+- Builds überschreiben immer den Stand `latest` -> Das spart Plattenplatz!
+- Keine Unterscheidung zwischen CI-Builds und Release-Builds.
+- Eine Version, die ausgerollt werden soll bekommt nach erfolgreichem Test ein Tag.
+- Branches vermeiden (Lieber schnell vorwärts rollen und toggeln).
+
+Versionierung - Version Files
+=============================
+Jeder Build legt eine Textdatei: `<imagename>.version` im Image ab:
+
+ - Imagename
+ - Build Datum
+ - Git commit id
+ - Jenkins build id
+
+Mit `gig versions` werden alle Version-Files eines Images ausgegeben:
+
+    "gig_nginxBackend": {
+      "image": "tron-registry.lan.tarent.de/nginx-backend:latest",
+      "imageHash": "de1ddbe6b6d1",
+      "versionFiles": [
+        "nginx-backend,2015-05-13:09:09:43,commit d7..23,jenkins-nginx_backend-150",
+        "nginx,2015-05-13:09:08:49,commit c2..70,jenkins-nginx_baseimage-71",
+        "ubuntu-baseimage,2015-05-12:23:00:48,commit d3..5a,jenkins-ubuntu_baseimage-58"
+      ]},
 
 
 Logging & Monitoring
