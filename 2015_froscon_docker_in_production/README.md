@@ -9,7 +9,7 @@ Immutable Infrastructure
 -------------------------
 * Alles Services und Systeme werden in einem definierten Build-Prozess gebaut
 * Daten und Dienste werden klar getrennt
-* Ein Service wird nur gestartet und durch einen neuen ersetzt -> niemals verändert
+* Ein Service wird nur gestartet und durch einen neuen ersetzt → niemals verändert
 * Warum? __Vermeidung von unterschieden zwischen Entwicklung, Staging und Produktion__
 
 Unterstützung der Entwicklung
@@ -19,7 +19,16 @@ Microservices stellen nicht nur Ops vor Herausforderungen:
 
 - Entwickler müssen die Plattform in einer bestimmten Version lokal zum Laufen bringen
 - Die lokale Installation sollte der auf Produktion möglichst ähnlich sein
-- Lokal muss es möglich sein Services einfach gegen Entwicklungsversionen auszutauschen
+- Lokal muss es möglich sein
+  - Services einfach gegen Entwicklungsversionen auszutauschen
+  - Services schnell neu zu starten (<5 Sekunden)
+
+Warum nicht Vagrant?
+-----------------------
+Natürlich auch eine Option, aber häufig:
+
+- Schwerfälliger / langsamer
+- Aufwändiger alles auf eine/wenige VMs zu integrieren
 
 Voraussetzungen für Docker
 ===============================
@@ -44,9 +53,17 @@ Wann ich kein Docker einsetzen würde:
 
 ![Wahl gestrandet](images/pottwal_gestrandet.jpg)
 
-- Wenn Software-Entwicklung und Betrieb getrennt sind
+- Wenn Software-Entwicklung und Betrieb getrennt sind.
 
 - Wenn keine aktive Entwicklung der Plattform geplant ist: Einmal entwickelt und nie wieder angepackt.
+
+- Wenn schon andere ausgereifte Lösungen im Einsatz sind.
+
+Immer Docker?
+====================
+
+![Keine Ideologie](images/ideologie.png)
+
 
 Buzzerdeal.de
 =================
@@ -59,11 +76,11 @@ Casual Gaming Plattform der Deutschen Post ![Deutschen Post Logo](images/post_lo
 Herausforderungen
 =================
 
-Schnelle Entwicklung (Erstes Release nach ca. 8 Wochen)
+Schnelle Entwicklung (erstes Release nach ca. 8 Wochen).
 
-Agile inkrementelle Weiterentwicklung
+Agile ständige Weiterentwicklung.
 
-Entwicklung und Betrieb aus einer Hand
+Entwicklung und Betrieb aus einer Hand.
 
 Hohe Sicherheitsvorgaben (Deutsche Post)
 
@@ -77,7 +94,7 @@ Hohe Qualitätsansprüche:
 - Automatisierte Tests (Unit, Komponenten, UI)
 - Staging-Umgebungen:
 
-  Lokal -> Dev -> Test -> Referenz -> Produktion
+  Lokal ⇨ Test ⇨ Referenz ⇨ Produktion
 
 Herausforderungen
 ====================
@@ -100,10 +117,38 @@ Das einfachste Tool, das die Anforderungen unterstützt ohne zusätzliche komple
 
 Buzzerdeal.de - Architektur
 =============================
-Viele kleine Services und bestehende Komponenten:
+Viele kleine Services & Nginx als Router
 
 ![Buzzerdeal.de - Architektur](images/buzzerdeal_architecture.png)
 
+Rollout der Container
+=============================
+Was wir nicht brauchten:
+------------------------
+- Breite Verteilung oder dynamische Skalierung
+
+Was wir nicht wollten:
+-----------------------
+- Cloud Management tools
+- Komplexe Orchestrierung
+- docker-compose (Damals fig: zu viel dev, zu wenig prod)
+- Weiteres Config-Management (Puppet, Chef, ..)
+
+Lösung:
+-----------
+- docker deamon als service supervisor (`--restart=always`)
+- Kleines selbst geschriebenes Helferlein zum Rollout: `gig`
+
+gig
+=================
+<https://github.com/smancke/gig>
+
+- MIT License
+- Verwendet YAML-Dateien analog zu docker-compose
+- Voll über Shell-Variablen parametrisierbar 
+- Direkter Aufruf in der Entwicklung (Java)
+- Generiert ein Shell-Script für die Nutzug auf _Test_ und _Produktion_
+- ~800 loc inkl. Java + Shell
 
 gig - Kommandos
 =================
@@ -157,12 +202,6 @@ gig Config Beispiel
         MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD_PIWIK
 
 
-
-Architektur und Routing
-=======================
-* Portvergabe (Nutzung des docker interfaces als localhost)
-* Nginx als Router
-
 Environments
 =================
 
@@ -176,7 +215,7 @@ Lösung:
 
 - Die Plattform-Beschreibung ist per Shell-Variablen konfigurierbar.
 - Die Config-Files aller Dienste sind mit Umgebungsvariablen überschreibbar
-- Von außen wird nur gesetzt, was in den Umgebungen unterschiedlich ist. Alles andere wird _hart_ konfiguriert
+- Von außen wird nur gesetzt, was in den Umgebungen unterschiedlich ist. Alles andere wird im image _hart_ konfiguriert
 
 Beispiel:
 
@@ -184,14 +223,15 @@ Beispiel:
     org.osiam.auth-server.db.username=root
     org.osiam.auth-server.db.password=${MYSQL_ROOT_PASSWORD_OSIAM}
 
-
 Lokale Entwicklung
 ====================
-* Ersetzen von Containern gegen lokal gestartete Dienste
+* Lokal können alle oder ausgewählte container gestartet werden
+* Ersetzen von Containern gegen lokal gestartete Dienste (z.B. aus der IDE)
+* Dev-Verzeichnisse können lokal in den Container gemoutet werden um Roundtrip-Zeiten zu vermeiden
 
-Base images selber bauen
-====================
-Warum eigene Images?
+Images bauen
+========================
+Base images selber bauen!
 
 - Kontrolle von Upstream Änderungen
 - Aufbau der eigenen Images auf wenige Base-Images
@@ -205,16 +245,17 @@ Versionierung
 =================
 - Wie kann ich den Source-Code-Stand eines Containers finden?
 - Auf welche Images baut mein Image auf?
-- Wie kann vermeiden, dass sich zu viele Image-Versionen ansammeln?
+- Wie kann ich vermeiden, dass sich zu viele Image-Versionen ansammeln?
 
 Way to go:
 -----------
-- Builds überschreiben immer den Stand `latest` -> Das spart Plattenplatz!
+- Builds überschreiben immer den Stand `latest` → Das spart Plattenplatz!
 - Keine Unterscheidung zwischen CI-Builds und Release-Builds.
-- Eine Version, die ausgerollt werden soll bekommt nach erfolgreichem Test ein Tag.
+- Eine Version, die ausgerollt werden soll bekommt nach erfolgreichem Test ein Tag. (`gig tag` und `gig push`)
 - Branches vermeiden (Lieber schnell vorwärts rollen und toggeln).
+- Niemand außer _Jenkins_ pushed images in die Registry!!!
 
-Versionierung - Version Files
+Version Files
 =============================
 Jeder Build legt eine Textdatei: `<imagename>.version` im Image ab:
 
@@ -236,32 +277,32 @@ Mit `gig versions` werden alle Version-Files eines Images ausgegeben:
     "tron_nginx": {
       ...
 
-
 Logging & Monitoring
 ======================
-* Log Stacks
-* Logspout
-* Cadvisor
+- Log Stacks - aktuell:
+  - Wackelig: Logspout + curl + ELK
+  - Konventionelles Sichern der Logs (gig save-logs)
+  - Umstieg auf docker native appender, z.b. fluentd + elasticsearch + kibana
+- Logspout
+  - <https://github.com/gliderlabs/logspout>
+  - Lauscht auf neue Container, stellt die Logs per HTTP zur Verfügung
+- Cadvisor
+  - <https://github.com/google/cadvisor>
 
 Health-Checks
 ==============
 Jeder Service hat http-Entpunkte `/health` und `/metrics`
 
-Abfrage und anzeige in einem Dashboard:
+Abfrage und Anzeige in einem Dashboard & shell-script & auf allen Umgebungen
 
 ![Health Checks](images/health.png)
 
 Learnings:
 =================
 * Container müssen unabhängig deploybar sein
+* Container selbst müssen schnell starten
 
 
-
-Backup Slides
+Danke
 ================
-
-Sichheit
-=================
-Wie sicher ist Docker?
-* Auf jeden Fall sicherer als ohne Docker
-* Klare Definition von Kommunikationskanälen
+[Slides auf github](https://github.com/smancke/talks/tree/master/2015_froscon_docker_in_production)
