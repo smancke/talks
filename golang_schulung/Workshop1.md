@@ -294,7 +294,27 @@ func Getenv(key string) string          // get environment variable
 func Exit(code int)                     // exit with return code
 ```
 
-### Exec
+### Schreiben in eine Datei
+------------------------------
+* Verwendung des Packages os
+* defer statement werden am Ende der funktion ausgeführt (== finally{})
+
+```go
+import "os"
+
+func main() {
+	file, err := os.Create("/tmp/hello")
+	if err != nil {
+		fmt.Printf("error: %v", err)
+		return
+	}
+	defer file.Close()
+
+	file.WriteString("Hello World\n")
+}
+```
+
+### Exec Beispiel
 ```go
 import (
 	"fmt"
@@ -313,26 +333,6 @@ func main() {
 	} else {
 		fmt.Printf("> %v", string(out))
 	}
-}
-```
-
-### Schreiben in eine Datei
-------------------------------
-* Verwendung des Packages os
-* defer statement werden am Ende der funktion ausgeführt (== finally{})
-
-```go
-import "os"
-
-func main() {
-	file, err := os.Create("/tmp/hello")
-	if err != nil {
-		fmt.Printf("error: %v", err)
-		return
-	}
-	defer file.Close()
-
-	file.WriteString("Hello World\n")
 }
 ```
 
