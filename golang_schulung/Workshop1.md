@@ -20,7 +20,7 @@ go run hello.go
 
 ## Projektstruktur
 ### Anlegen eines Workspace
-```go
+```shell
 mkdir hello_world
 cd hello_world
 export GOPATH=`pwd`
@@ -28,13 +28,13 @@ mkdir -p src/hello
 ```
 
 ### Übersetzen und Ausführen
-```go
+```shell
 go install hello
 bin/hello
 ```
 
 ## Weitere Befehle
-```go
+```shell
 go build <package>   # Baut nur, ohne zu installieren
 go test <packages>   # Fürt Tests in den *_test.go aus
 go get <packages>    # Holt und installiert alle Abhängigkeiten
@@ -303,19 +303,19 @@ Schreibe einen kleines Programm `kv`, mit dem Du Schlüssel-Werte
 Paare in einer Datei speichern und abfragen kannst.
 
 Setzen von Werten:
-```
+```shell
 kv name=Mancke vorname=Sebastian alter=42
 ```
 
 Abfragen bestimmter Werte
-```
+```shell
 kv name vorname
 > name=Mancke
 > vorname=Sebastian
 ```
 
 Abfragen aller Werte
-```
+```shell
 kv
 > name=Mancke
 > vorname=Sebastian
