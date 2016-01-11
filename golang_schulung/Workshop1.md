@@ -294,5 +294,31 @@ func main() {
 	file.WriteString("Hello World\n")
 }
 
-__Übung__: Schreibe alle Komandozeilen Argumente zeilenweise in eine Datei
+## Übung 1: IDE
+Probiere mehrere Editoren/IDEs aus und entscheide Dich für eine.
+
+
+## Übung 2: Key-Value Store
+Schreibe einen kleines Programm `kv`, mit dem Du Schlüssel-Werte
+Paare in einer Datei speichern und abfragen kannst.
+
+Setzen von Werten:
+```
+kv name=Mancke vorname=Sebastian alter=42
+```
+
+Abfragen bestimmter Werte
+```
+kv name vorname
+> name=Mancke
+> vorname=Sebastian
+```
+
+Abfragen aller Werte
+```
+kv
+> name=Mancke
+> vorname=Sebastian
+> alter=42
+```
 
