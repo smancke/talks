@@ -184,8 +184,8 @@ person3.Name = "Meyer"
 fmt.Println(person1.Name) // Meyer
 ```
 
-### Pointer und Slices oder Maps
-Mit make erstellte Datentypen sind immer Pointer-Typen.
+### Pointer und Slices/Maps
+Mit `make()` erstellte Datentypen sind immer Pointer-Typen.
 
 ```go
 colors1 := []string{"red", "blue"}
