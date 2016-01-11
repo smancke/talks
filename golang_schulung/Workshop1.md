@@ -107,7 +107,7 @@ farben := make([]string, 0, 5)
 
 ### Maps
 ```go
-m := make(map[KeyType]StringType
+m := make(map[KeyType]StringType)
 ```
 
 Beispiel:
@@ -155,9 +155,10 @@ fmt.Println(person)
 * Typsichere Pointer können verwendet werden
 ```go
 a := 41
-var b *int
 
+var b *int
 b = &a
+
 *b++
 
 fmt.Println(a) // 42
@@ -169,18 +170,19 @@ Referenzen auf structs:
 // copy by value
 person1 := Person{
 	Name: "Mancke",
-}
+    }
+    
 person2 := person1
-
 person2.Name = "Meyer"
+
 fmt.Println(person1.Name) // Mancke
 
 // copy by reference
 person3 := &person1
-
 person3.Name = "Meyer"
+
 fmt.Println(person1.Name) // Meyer
-```go
+```
 
 ### Pointer und Slices oder Maps
 Mit make erstellte Datentypen sind immer Pointer-Typen.
