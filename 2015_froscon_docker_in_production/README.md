@@ -18,7 +18,7 @@ Unterstützung der Entwicklung
 Microservices stellen nicht nur Ops vor Herausforderungen:
 
 - Entwickler müssen die Plattform in einer bestimmten Version lokal zum Laufen bringen
-- Die lokale Installation sollte der auf Produktion möglichst ähnlich sein
+- Die lokale Installation sollte der Produktion möglichst ähnlich sein
 - Lokal muss es möglich sein
   - Services einfach gegen Entwicklungsversionen auszutauschen
   - Services schnell neu zu starten (<5 Sekunden)
@@ -161,7 +161,7 @@ gig - Kommandos
         start               start the existing containers, if already up
         stop                stop containers
         restart             stop containers and then start them
-        restartrm           stop containers, remove them and then start again
+        restartrm           stop containers, remove and then start again
         update              rm and start container if a newer image exists
                                start container if not running
         rollout             pull images and do update
@@ -215,7 +215,7 @@ Lösung:
 
 - Die Plattform-Beschreibung ist per Shell-Variablen konfigurierbar.
 - Die Config-Files aller Dienste sind mit Umgebungsvariablen überschreibbar
-- Von außen wird nur gesetzt, was in den Umgebungen unterschiedlich ist. Alles andere wird im image _hart_ konfiguriert
+- Von außen wird nur gesetzt, was in den Umgebungen unterschiedlich ist. Alles andere wird im Image _hart_ konfiguriert
 
 Beispiel:
 
@@ -231,7 +231,7 @@ Lokale Entwicklung
 
 Images bauen
 ========================
-Base images selber bauen!
+Base-Images selber bauen!
 
 - Kontrolle von Upstream Änderungen
 - Aufbau der eigenen Images auf wenige Base-Images
@@ -253,7 +253,7 @@ Way to go:
 - Keine Unterscheidung zwischen CI-Builds und Release-Builds.
 - Eine Version, die ausgerollt werden soll bekommt nach erfolgreichem Test ein Tag. (`gig tag` und `gig push`)
 - Branches vermeiden (Lieber schnell vorwärts rollen und toggeln).
-- Niemand außer _Jenkins_ pushed images in die Registry!!!
+- Niemand außer _Jenkins_ pushed Images in die Registry!!!
 
 Version Files
 =============================
@@ -299,10 +299,12 @@ Abfrage und Anzeige in einem Dashboard & shell-script & auf allen Umgebungen
 
 Learnings:
 =================
-* Container müssen unabhängig deploybar sein
-* Container selbst müssen schnell starten
+- Container müssen unabhängig deploybar sein
+- Container selbst müssen schnell starten
+- Services sollten sich auch bei fehlenden Abhängigkeiten robust verhalten
+  - Ausfall einzelner Dienste im Betrieb
+  - Starten von Teilen in der Enwicklung
 
-
-Danke
+Danke ...
 ================
-[Slides auf github](https://github.com/smancke/talks/tree/master/2015_froscon_docker_in_production)
+... Slides auf github: [https://github.com/smancke/talks](https://github.com/smancke/talks/tree/master/2015_froscon_docker_in_production)
