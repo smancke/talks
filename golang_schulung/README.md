@@ -3,9 +3,28 @@
 ## Angeda
 
 ### Workshop 1
-* Grundlagen der Sprache
-* Datentypen
-* Tooling & Projektorganisation
+* Hello World
+* Projektstruktur
+* Sprachgrundlagen
+** Packages
+** Datentypen & Variablen
+*** Build-in Datentypen
+*** Array & Slices
+*** Maps
+*** Structs
+*** Pointer
+*** Pointer und Structs
+*** Pointer und Slices/Maps
+*** Funktionen
+** Kontrollstrukturen
+*** Kontrollstrukturen - if {}
+*** Kontrollstrukturen - for {}
+*** Kontrollstrukturen - switch {}
+* Das Package `os`
+** Schreiben in eine Datei
+* Übungen
+** Übung 1: IDE
+** Übung 2: Key-Value Store
 
 ### Workshop 2
 * OOP mit Golang
