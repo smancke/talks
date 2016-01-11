@@ -72,13 +72,20 @@ i := 42
 ```
 
 ### Build-in Datentypen
-* int und float Typen in verschiedenen größen
+* int, uint und float Typen in verschiedenen größen
 * bool
+* complex, rune
 * arrays mit fester Länge `[4]int{42, 43, 44, 45}`
 * Slices als Abstraktion über Arrays: `[]int{42, 43, 44, 45}`
 * string (Entspricht einem byte Slice)
 * Maps `map[string]int{"a": 42, "b": 43}`
 * Structs
+
+Typ Konvertierung:
+```go
+a := 42
+b := uint64(a)
+```
 
 ### Array & Slices
 * Arrays haben eine feste Größe
@@ -276,7 +283,40 @@ default:
 }
 ```
 
-# Schreiben in eine Datei
+## Das Pacakge `OS`
+[https://golang.org/pkg/os/](https://golang.org/pkg/os/)
+```go
+var Args []string     // Commandline arguments
+
+func Create(name string) (*File, error) // create a file
+func Open(name string) (*File, error)   // open a file
+func Getenv(key string) string          // get environment variable
+func Exit(code int)                     // exit with return code
+```
+
+### Exec
+```go
+import (
+	"fmt"
+	"os"
+	"os/exec"
+)
+
+func main() {
+	if len(os.Args) < 2 {
+		fmt.Printf("usage: cmd command [args]\n")
+	}
+	c := exec.Command(os.Args[1], os.Args[2:]...)
+
+	if out, err := c.Output(); err != nil {
+		fmt.Printf("error: %v", err)
+	} else {
+		fmt.Printf("> %v", string(out))
+	}
+}
+```
+
+### Schreiben in eine Datei
 ------------------------------
 * Verwendung des Packages os
 * defer statement werden am Ende der funktion ausgeführt (== finally{})
@@ -309,14 +349,14 @@ Setzen von Werten:
 kv name=Mancke vorname=Sebastian alter=42
 ```
 
-Abfragen bestimmter Werte
+Abfragen bestimmter Werte:
 ```shell
 kv name vorname
 > name=Mancke
 > vorname=Sebastian
 ```
 
-Abfragen aller Werte
+Abfragen aller Werte:
 ```shell
 kv
 > name=Mancke

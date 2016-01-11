@@ -33,6 +33,8 @@
 
 ### Workshop 3
 * Nebenläufigkeit
+* Channel
+* Goroutinen
 
 ### Workshop 4
 * Erweitertes Tooling
@@ -42,7 +44,7 @@
 * Web Anwendungen mit golang
 
 ### Workshop 6
-* Größere Projekte Organisieren
+* Größere Projekte organisieren
 
 ### Workshop 7
 * TBD
