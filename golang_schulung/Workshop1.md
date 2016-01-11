@@ -200,7 +200,7 @@ fmt.Println(colors1) // black, white
 ### Funktionen
 Normale Funktionen:
 ```go
-func name(parameter1 type, parameter2 type) (returnParam1 type,  returnParam2  type) {
+func name(parameter1 type, parameter2 type) (returnParam1 type, returnParam2 type) {
  ..
 }
 ```
@@ -216,10 +216,9 @@ var executer = func(name string, f func(name string)) {
 }
 
 executer("Marvin", hello)
-}
 ```
 
-## Kontrollstrukturen - if
+## Kontrollstrukturen - if {}
 ```go
 if 2 > 1 {
 	fmt.Println("1>2")
@@ -232,7 +231,7 @@ if data, err := readFromDatabase(); err != nil {
 }
 ```
 
-## Kontrollstrukturen - for
+## Kontrollstrukturen - for {}
 ```go
 colors := []string{"black", "red", "blue", "green", "white"}
 
@@ -264,7 +263,7 @@ for {
 }
 ```
     
-## Kontrollstrukturen - switch/case
+## Kontrollstrukturen - switch {}
 ```go
 color := "nothing"
 switch color {
@@ -295,6 +294,7 @@ func main() {
 
 	file.WriteString("Hello World\n")
 }
+```
 
 ## Übung 1: IDE
 Probiere mehrere Editoren/IDEs aus und entscheide Dich für eine.
