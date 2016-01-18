@@ -10,12 +10,13 @@ func main() {
 	fmt.Println(bunt)
 
 	bunt = append(bunt, "orange")
+	fmt.Println(farben)
 	fmt.Println(bunt)
 
-	fmt.Println(len(farben[0:1]))
-	fmt.Println(cap(farben[0:1]))
+	miniSlice := farben[1:2]
+	fmt.Println(len(miniSlice))
+	fmt.Println(cap(miniSlice))
 
 	farben2 := make([]string, 0, 5)
 	fmt.Println(farben2)
-
 }

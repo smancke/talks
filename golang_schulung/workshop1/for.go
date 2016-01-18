@@ -13,7 +13,7 @@ func main() {
 
 	// iterate
 	for i, color := range colors {
-		fmt.Printf("%v: %v\n", i, color)
+		fmt.Printf("%v: %v\n", i)
 	}
 
 	// while

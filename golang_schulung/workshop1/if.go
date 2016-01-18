@@ -15,6 +15,7 @@ func main() {
 	} else {
 		fmt.Println(data)
 	}
+
 }
 
 func readFromDatabase() (string, error) {

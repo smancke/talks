@@ -114,7 +114,7 @@ farben := make([]string, 0, 5)
 
 ### Maps
 ```go
-m := make(map[KeyType]StringType)
+m := make(map[KeyType]ValueType)
 ```
 
 Beispiel:

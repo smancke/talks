@@ -28,13 +28,14 @@
 
 ### Workshop 2
 * OOP mit Golang
-* Tests und Benchmarks
+* Tests 
 * Mocking mit gomock
 
 ### Workshop 3
 * Nebenläufigkeit
 * Channel
 * Goroutinen
+* Benchmarks
 
 ### Workshop 4
 * Erweitertes Tooling
@@ -45,6 +46,7 @@
 
 ### Workshop 6
 * Größere Projekte organisieren
+* Interssante Packages und Libraries
 
 ### Workshop 7
 * TBD
