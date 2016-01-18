@@ -16,7 +16,6 @@ func Test_Item_MoveTo(t *testing.T) {
 		t.Logf("Item not moved correct: expected=%v, is=%v", expected, atom.Pos())
 		t.Fail()
 	}
-
 }
 
 func Test_Item_MoveTo_WithAssert(t *testing.T) {

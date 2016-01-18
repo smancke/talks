@@ -1,9 +1,9 @@
 package objects
 
-type flyable interface {
+type Flyable interface {
 	MoveTo(Point)
 }
 
-func flyToMiddleOfUniverse(f flyable) {
+func flyToMiddleOfUniverse(f Flyable) {
 	f.MoveTo(Point{0, 0})
 }

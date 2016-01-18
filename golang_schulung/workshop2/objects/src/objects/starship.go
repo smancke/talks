@@ -1,5 +1,7 @@
 package objects
 
+import ()
+
 type Starship struct {
 	Item
 	Speed int

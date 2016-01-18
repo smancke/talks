@@ -1,6 +1,7 @@
 package objects
 
 import (
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -14,5 +15,16 @@ func Test_flyToMiddleOfUniverse_WithoutMock(t *testing.T) {
 }
 
 func Test_flyToMiddleOfUniverse_Mock(t *testing.T) {
-	//.. TODO ..
+
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mock := NewMockFlyable(ctrl)
+
+	//mock.EXPECT().MoveTo(Point{0, 0})
+	mock.EXPECT().MoveTo(gomock.Any()).Do(func(p Point) {
+		assert.Equal(t, Point{0, -1}, p)
+	})
+
+	flyToMiddleOfUniverse(mock)
 }
