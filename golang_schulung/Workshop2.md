@@ -1,6 +1,7 @@
 # Workshop 2
 
-# defer
+# Weitere Grundlagen
+## defer
 ------------------------------
 * `defer`: Verzögert die Ausführung bis an das Ende der aktuellen Funktion
 * Die Ausführung wird garantiert (== finally{})
@@ -20,7 +21,7 @@ func main() {
 }
 ```
 
-# Panic, Recover
+## Panic, Recover
 * `panic`: Löst ein Panic aus (ähnlich einer Exception)
 * `recover`: Fängt ein panic ab
 
@@ -34,7 +35,7 @@ func travel() {
 	panic("I lost my towel")
 }
 ```
-# Type switches
+## Type switches
 * `interface{}` entspricht dem generischen Typ (Object bzw. void*).
 * Mit type switches lässt sich elegant in einem Schritt prüfen und konvertieren.
 
@@ -231,6 +232,8 @@ func Test_Stringer(t *testing.T) {
 	}
 }
 ```
+
+# Übungen
 
 ## Übung 3: Key-Value Objekt Orientiert
 Baue Deinen KV-Store so um, dass er intern eine Klasse Store verwendet,
