@@ -1,12 +1,43 @@
 # Workshop 3
 
-# Benchmarking
 # Goroutinen
-# Das `sync` Package
-## Mutex
-## Wait Group
+Goroutinen sind eine leichtgewichtige Alternative zu Theads.
+Sie werden von der Go Runtime auf echte Threads verteilt.
+
+Test auf *i5-2520M*:
+
+__1 Mio Goroutinen lassen sich in unter 2 Sekunden ausführen.__
+
+(Vgl.: 1 Mio Java Threads: ~40 Sekunden)
+
+## Goroutinen Syntax
+```go
+go doInBackground()
+```
+
+Oder inline definiert:
+```go
+go func() {
+	for i := 0; i < 100; i++ {
+		fmt.Println("in background inline")
+	}
+}()
+```
+    
+## Maximale Threads begrenzen
+Die Anzahl maximal gleichzeitig aktiver Threads kann über 
+`runtime.GOMAXPROCS(n int)` gesetzt werden.
+
+Default ist `runtime.NumCPU()`.
+
+## Sheduling
+Die Ausführung einer laufenden Goroutine wird vom Sheduler nur sehr selten unterbrochen.
+Durch ein `runtime.Gosched()`, ein `time.Sleep()` oder blockierende IO Operationen
+wechselt der Sheduler jedoch direkt auf eine andere Goroutine.
 
 # Channel
+
+*Do not communicate by sharing memory; instead, share memory by communicating.*
 
 ## Basics
 * Ein Channel ist eine typisierte fifo-Queue mit fester Länge
@@ -183,3 +214,114 @@ func main() {
 ```
 
 ## Channel Tricks: Channel mit Callback
+Wenn auf eine Anfrage an einen Channel eine Antwort erwartet wird kann es praktisch sein,
+einen Callback Channel mit zu übergeben.
+
+```go
+type request struct {
+	msg      string
+	callback chan string
+}
+
+func echoRoutine(requestChannel chan request) {
+	for {
+		request := <-requestChannel
+		request.callback <- request.msg
+	}
+}
+```
+
+# Das `sync` Package
+Das `sync` Package enthält kleine Helper Concurrency Aufgaben.
+
+## Mutexes
+Zum expliziten Locken des Zugriffes auf Daten kann ein  Mutex verwendet werden.
+
+Exclusiver Lock:
+```go
+var mutex = &sync.Mutex{}
+mutex.Lock()
+mutex.Unlock()
+```
+
+Read Write Lock:
+```go
+var rwmutex = &sync.RWMutex}
+rwmutex.Lock()
+rwmutex.RLock()
+rwmutex.RUnlock()
+rwmutex.Unlock()
+```
+
+## Wait Group
+Eine Wait Group kann verwendet werden um auf eine Menge von Jobs zu warten:
+```go
+func doInBackground(waitGroup *sync.WaitGroup) {
+	fmt.Println("do in backgroud")
+	waitGroup.Done()
+}
+
+func main() {
+	waitGroup := &sync.WaitGroup{}
+
+	for i := 0; i < 10; i++ {
+		waitGroup.Add(1)
+		go doInBackground(waitGroup)
+	}
+
+	waitGroup.Wait()
+
+	fmt.Printf("done.")
+}
+```
+
+# Benchmarks
+
+# Benchmarks: Grundidee
+* Benchmarks sind Funktionen in den Test Dateien mit der Signatur: `func Benchmark_*(b *testing.B)`
+* Der Testcode wird in einer Schleife `b.N` mal wiederholt.
+* Abhängig von der Ausführungszeit für Go mehrere Tests mit unterschiedlichen Stichproben durch (z.B. 100, 10000, 1000000).
+
+# Benchmarks: Hilfsfunktionen
+Damit Hilfscode nicht mit gemessen wird, kann der Timer explizit gesteuert werden:
+
+* `b.ResetTimer()` - Setz the timer zurück
+* `b.StartTimer()` - (Re)Start des Timers
+* `b.StopTimer()` - Hält den Timer an
+
+# Benchmarks: Beispiel
+
+```go
+func Benchmark_Creation_Of_Goroutines(b *testing.B) {
+	fmt.Printf("testing with %v goroutines\n", b.N)
+	doneChannel := make(chan bool)
+
+	for i := 0; i < b.N; i++ {
+		go doInBackground(doneChannel)
+	}
+
+	for i := 0; i < b.N; i++ {
+		<-doneChannel
+	}
+}
+```
+
+# Benchmarks ausführen
+
+Die Ausführung erfolgt über `go test -bench <regex>`
+
+Beispiel:
+```shell
+go test -bench '.*' goroutine_lots_of_test.go
+```
+
+# Übungen
+
+## Übung 5a: Concurrent Key-Value Store Access
+Sichere Deine Key-Value Store Klasse so ab, dass sie parallelem Zugriff Stand hält.
+
+## Übung 5b: Concurrency Test
+Teste die Klasse mit vielen parallelen Reads und Writes.
+
+## Übung 6: Benchmarking des Key-Value Stores
+Messe die Zeit, die Dein KV-Store braucht um einen Durchlauf von *Schreiben-Speichern-Lesen* durch zu führen.

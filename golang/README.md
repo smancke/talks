@@ -129,9 +129,7 @@ user.CallUser("hör gut zu!")
 -------------
 Leichtgewichtige co-routinen, die im Hintergrund laufen.
 ```go
-go {
-    doSomething()
-}
+go doSomething()
 ```
 
 `channel`
