@@ -47,15 +47,30 @@
   - Übung 3: Key-Value Objekt Orientiert
   - Übung 4: Testen
 
-* OOP mit Golang
-* Tests 
-* Mocking mit gomock
-
 ### Workshop 3
-* Nebenläufigkeit
-* Channel
-* Goroutinen
-* Benchmarks
+- Workshop 3
+- Goroutinen
+  - Goroutinen Syntax
+  - Maximale Threads begrenzen
+  - Sheduling
+- Channel
+  - Basics
+  - Unbuffered Channel
+  - Buffered Channel
+  - Schließen eines Channel
+  - Mit range über Channels iterieren
+  - Select
+  - Channel Tricks: Exit on Signal
+  - Channel Tricks: Close als Wait-Broadcast
+  - Channel Tricks: Channel mit Callback
+- Das `sync` Package
+  - Mutexes
+  - Wait Group
+- Benchmarks
+- Übungen
+  - Übung 5a: Concurrent Key-Value Store Access
+  - Übung 5b: Concurrency Test
+  - Übung 6: Benchmarking des Key-Value Stores
 
 ### Workshop 4
 * Erweitertes Tooling

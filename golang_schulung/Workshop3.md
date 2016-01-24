@@ -277,19 +277,19 @@ func main() {
 
 # Benchmarks
 
-# Benchmarks: Grundidee
+## Benchmarks: Grundidee
 * Benchmarks sind Funktionen in den Test Dateien mit der Signatur: `func Benchmark_*(b *testing.B)`
 * Der Testcode wird in einer Schleife `b.N` mal wiederholt.
 * Abhängig von der Ausführungszeit für Go mehrere Tests mit unterschiedlichen Stichproben durch (z.B. 100, 10000, 1000000).
 
-# Benchmarks: Hilfsfunktionen
+## Benchmarks: Hilfsfunktionen
 Damit Hilfscode nicht mit gemessen wird, kann der Timer explizit gesteuert werden:
 
 * `b.ResetTimer()` - Setz the timer zurück
 * `b.StartTimer()` - (Re)Start des Timers
 * `b.StopTimer()` - Hält den Timer an
 
-# Benchmarks: Beispiel
+## Benchmarks: Beispiel
 
 ```go
 func Benchmark_Creation_Of_Goroutines(b *testing.B) {
@@ -306,7 +306,7 @@ func Benchmark_Creation_Of_Goroutines(b *testing.B) {
 }
 ```
 
-# Benchmarks ausführen
+## Benchmarks ausführen
 
 Die Ausführung erfolgt über `go test -bench <regex>`
 
