@@ -73,8 +73,11 @@
   - Übung 6: Benchmarking des Key-Value Stores
 
 ### Workshop 4
-* Erweitertes Tooling
-* Rundgang durch die Standard Library
+- Erweitertes Tooling
+  - Code Generieren
+  - Profiler
+  - Debugger
+- Rundgang durch die Standard Library
 
 ### Workshop 5
 * Web Anwendungen mit golang

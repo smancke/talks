@@ -37,6 +37,5 @@ func byRange() {
 
 	for v := range ch {
 		fmt.Printf("v=%v\n", v)
-
 	}
 }

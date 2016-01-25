@@ -23,7 +23,7 @@ func Test_flyToMiddleOfUniverse_Mock(t *testing.T) {
 
 	//mock.EXPECT().MoveTo(Point{0, 0})
 	mock.EXPECT().MoveTo(gomock.Any()).Do(func(p Point) {
-		assert.Equal(t, Point{0, -1}, p)
+		assert.Equal(t, Point{0, 0}, p)
 	})
 
 	flyToMiddleOfUniverse(mock)

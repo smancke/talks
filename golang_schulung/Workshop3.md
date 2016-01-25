@@ -45,14 +45,16 @@ wechselt der Sheduler jedoch direkt auf eine andere Goroutine.
 * Alle Operationen auf Channel sind robust gegenüber paralleler Zugriffe
 
 Erstellen eines Channels: `make (chan DataType, size)`
+
 Schreiben in den Channel: `ch <- value`
+
 Lesen vom Channel: `value <- ch`
 
 
 ## Unbuffered Channel
 * Operationen auf einen Channel blockieren
 * Lesen wartet, bis Daten vorliegen
-* Schreiben wartet, bis daten abgegeben werden können
+* Schreiben wartet, bis Daten abgegeben werden können
 
 ### Beispiel: Schreiben in separater Goroutine:
 ```go
@@ -140,11 +142,10 @@ for v := range ch {
 ```
 
 ## Select
-* Sie `select` Anweisung kann verwendet werden um mehrere Channel Operationen in einem durch zu führen.
-* Bei mehreren Case-Zweigen wird der Zweig ausgeführt, der als erster verfübar wird.
-* Sind mehrere Zweise Verfügbar, so ist die Reihenfolge zufällig.
+* Die `select` Anweisung kann verwendet werden um mehrere Channel Operationen in einem durch zu führen.
+* Bei mehreren Case-Zweigen wird der Zweig ausgeführt, der als erster verfübar ist.
+* Sind mehrere Zweige Verfügbar, so ist die Reihenfolge zufällig.
 * Der `default`-Zweig wird ausgeführt, wenn kein weiterer Zweig verfügbar ist.
-
 
 ```go
 func readNonBlocking() {
@@ -190,7 +191,7 @@ func waitForTermination(callback func()) {
 ```
 
 ## Channel Tricks: Close als Wait-Broadcast
-Da lesen von einem Geschlossenen Channel direct zurück kehrt kann dies als
+Da Lesen von einem geschlossenen Channel direct zurück kehrt, kann dies als
 Broadcast Signal verwendet werden.
 
 ```go
@@ -232,7 +233,7 @@ func echoRoutine(requestChannel chan request) {
 ```
 
 # Das `sync` Package
-Das `sync` Package enthält kleine Helper Concurrency Aufgaben.
+Das `sync` Package enthält kleine Helper für Concurrency Aufgaben.
 
 ## Mutexes
 Zum expliziten Locken des Zugriffes auf Daten kann ein  Mutex verwendet werden.
@@ -278,9 +279,10 @@ func main() {
 # Benchmarks
 
 ## Benchmarks: Grundidee
-* Benchmarks sind Funktionen in den Test Dateien mit der Signatur: `func Benchmark_*(b *testing.B)`
+* Benchmarks sind wie auch die Tests Funktionen, die in den Test-Dateien stehen.
+* Sie haben die Signatur: `func Benchmark_*(b *testing.B)`
 * Der Testcode wird in einer Schleife `b.N` mal wiederholt.
-* Abhängig von der Ausführungszeit für Go mehrere Tests mit unterschiedlichen Stichproben durch (z.B. 100, 10000, 1000000).
+* Abhängig von der Ausführungszeit führt Go mehrere Tests mit unterschiedlichen Stichproben durch (z.B. 100, 10000, 1000000).
 
 ## Benchmarks: Hilfsfunktionen
 Damit Hilfscode nicht mit gemessen wird, kann der Timer explizit gesteuert werden:

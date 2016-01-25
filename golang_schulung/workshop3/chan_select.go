@@ -7,8 +7,8 @@ import (
 
 func main() {
 
-	readNonBlocking()
 	sendWithTimeout()
+	readNonBlocking()
 }
 
 func sendWithTimeout() {
