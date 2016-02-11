@@ -74,9 +74,10 @@
 
 ### Workshop 4
 - Erweitertes Tooling
-  - Code Generieren
+  - Code Generieren go:generate
   - Profiler
-  - Debugger
+  - Debugging mit delve
+  - godep und GO15VENDOREXPERIMENT
 - Rundgang durch die Standard Library
 
 ### Workshop 5
