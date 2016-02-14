@@ -72,13 +72,18 @@
   - Übung 5b: Concurrency Test
   - Übung 6: Benchmarking des Key-Value Stores
 
-### Workshop 4
-- Erweitertes Tooling
-  - Code Generieren go:generate
-  - Profiler
-  - Debugging mit delve
-  - godep und GO15VENDOREXPERIMENT
-- Rundgang durch die Standard Library
+### Workshop 4 - Tooling
+- Dependency Management
+  - GO15VENDOREXPERIMENT
+  - glide
+  - Alternativen
+- Debugging mit delve
+  - Installation unter Linux
+  - Installation OSX, Windows
+- Profiling
+- GODEBUG
+- runtime/trace
+- Race detection
 
 ### Workshop 5
 * Web Anwendungen mit golang
@@ -86,6 +91,7 @@
 ### Workshop 6
 * Größere Projekte organisieren
 * Interssante Packages und Libraries
+- Rundgang durch die Standard Library
 
 ### Workshop 7
 * TBD
