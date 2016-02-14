@@ -11,12 +11,12 @@ func doInBackground(doneChannel chan bool) {
 }
 
 func main() {
-	fmt.Printf("start")
+	fmt.Printf("start\n")
 	start := time.Now()
 
 	count := 1000000
 
-	doneChannel := make(chan bool)
+	doneChannel := make(chan bool, 1)
 
 	for i := 0; i < count; i++ {
 		go doInBackground(doneChannel)
@@ -25,5 +25,5 @@ func main() {
 	for i := 0; i < count; i++ {
 		<-doneChannel
 	}
-	fmt.Printf("finished %v jobs in %v", count, (time.Now().Sub(start)))
+	fmt.Printf("finished %v jobs in %v\n", count, (time.Now().Sub(start)))
 }

@@ -3,11 +3,9 @@ package main
 import (
 	"log"
 	"math/rand"
-	"net/http"
-	_ "net/http/pprof"
 	"os"
 	"os/signal"
-	"runtime"
+	"runtime/trace"
 	"sort"
 	"sync"
 	"syscall"
@@ -17,11 +15,13 @@ var aList = make([]string, 0)
 var aMutex = new(sync.Mutex)
 
 func main() {
-	runtime.SetBlockProfileRate(50)
-
-	go func() {
-		log.Println(http.ListenAndServe("localhost:6060", nil))
-	}()
+	f, err := os.Create("trace_example.trace")
+	if err != nil {
+		panic(err.Error())
+	}
+	defer f.Close()
+	trace.Start(f)
+	defer trace.Stop()
 
 	for i := 0; i < 50; i++ {
 		go doSomething()
