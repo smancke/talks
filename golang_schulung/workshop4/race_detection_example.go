@@ -3,6 +3,7 @@ package main
 import (
 	"math/rand"
 	"sync"
+	"time"
 )
 
 var aMap = make(map[string]string, 0)
@@ -12,16 +13,18 @@ func main() {
 	for i := 0; i < 2; i++ {
 		go modifyMap()
 	}
+
+	time.Sleep(time.Second)
 }
 
 func modifyMap() {
-	for i := 0; i < 10000; i++ {
-		//aMutex.Lock()
+	for i := 0; i < 100; i++ {
+		aMutex.Lock()
 		key := randSeq(10)
 		value := randSeq(10)
 		aMap[key] = value
 		delete(aMap, key)
-		//aMutex.Unlock()
+		aMutex.Unlock()
 	}
 }
 
