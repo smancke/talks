@@ -85,16 +85,32 @@
 - runtime/trace
 - Race detection
 
-### Workshop 5
-* Web Anwendungen mit golang
+### Workshop 5 - Web Development Teil 1
+- Http Basics
+  - Http Handler 
+  - Http Handler interface
+  - http.ServeMux
+  - http.Server
+  - `DefaultServeMux`
+  - `http.Request`
+  - `http.ResponseWriter`
+- Templating
+  - Ausführung
+- Nette Features im Http Package
+  - `http.FileServer`
+  - `http.Client`
+  - Package `http/httptest`
+- Übung: File Storage Server
+- Übung: REST Interface für den KV-Store
 
-### Workshop 6
+### Workshop 6 - Web Development Teil 2
+- Alternative Router
+- Web Frameworks
+
+### Workshop 7
 * Größere Projekte organisieren
 * Interssante Packages und Libraries
 - Rundgang durch die Standard Library
-
-### Workshop 7
-* TBD
 
 ### Workshop 8
 * TBD
