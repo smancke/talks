@@ -74,6 +74,30 @@ type ResponseWriter interface {
 }
 ```
 
+## Templating
+Templating für text oder html in den Packages:
+```go
+import "text/template"
+```
+
+und
+```go
+import "html/template"
+```
+
+Gutes Intro in die Syntax:
+https://gohugo.io/templates/go-templates/
+
+### Ausführung
+```go
+t := template.New("template")
+t.Funcs(functionMap)
+
+template.Must(t.Parse(theTemplate))
+
+err := t.Execute(os.Stdout, data)
+```
+
 ## Nette Features im Http Package
 
 
@@ -94,7 +118,7 @@ Das File System erfolgt über eine einfache Abstraktion,
 so dass auch einfach ein Daten aus einem anderen Storage
 zurück geliefert werden können. (Gutes Beispiel für Ducktyping)
 
-## `http.Client`
+### `http.Client`
 Auch der Http-Client funktioniert denkbar einfach.
 
 ```go
@@ -117,11 +141,39 @@ type Response struct {
         ...
 }
 ```
-        
-## Dump Request
-## Testing Http
-## Reverse Proxy
 
+### Package `http/httptest`
+
+#### ResponseRecorder
+Zum einfachen Testen von Handlern.
+
+```go
+handler := func(w http.ResponseWriter, r *http.Request) {
+	http.Error(w, "something failed", http.StatusInternalServerError)
+}
+
+req, err := http.NewRequest("GET", "http://example.com/foo", nil)
+if err != nil {
+	log.Fatal(err)
+}
+
+w := httptest.NewRecorder()
+handler(w, req)
+
+fmt.Printf("%d - %s", w.Code, w.Body.String())
+```
+
+#### ResponseRecorder
+Startet einen Server auf einem zufälligen freien Port.
+
+```go
+ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Hello, client")
+}))
+defer ts.Close()
+
+res, err := http.Get(ts.URL)
+```
 
 ## Übung: File Storage Server
 Erstelle einen minimalen Server, der Dateien Speichern und Zurückliefern kann.
