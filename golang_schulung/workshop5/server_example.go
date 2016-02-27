@@ -18,5 +18,5 @@ func main() {
 		Handler: handler("Hello World"),
 	}
 
-	server.ListenAndServe()
+	panic(server.ListenAndServe())
 }

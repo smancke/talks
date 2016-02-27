@@ -12,5 +12,5 @@ func (h handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.ListenAndServe(":8080", handler("Hallo Welt"))
+	panic(http.ListenAndServe(":8080", handler("Hallo Welt")))
 }

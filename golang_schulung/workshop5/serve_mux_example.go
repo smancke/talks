@@ -19,6 +19,5 @@ func main() {
 		fmt.Fprintf(w, "42\n")
 	})
 
-	http.ListenAndServe(":8080", mux)
-
+	panic(http.ListenAndServe(":8080", mux))
 }

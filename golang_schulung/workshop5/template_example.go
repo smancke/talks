@@ -14,7 +14,7 @@ Name:   {{.Name}}
 Given:  {{.Given}} 
 Age:    {{.Age}}
 Gender: {{ .Male | genderToText }}
-State: {{ if lt .Age 18 }}Child{{ else }}Parent{{end}}
+State: {{ if lt .Age 18 }}Child{{ else }}Adult{{end}}
 {{end}}
 `
 
