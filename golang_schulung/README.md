@@ -104,20 +104,19 @@
 - Übung: REST Interface für den KV-Store
 
 ### Workshop 6 - Web Development Teil 2
-- Chaining von Handlern
-- JSON-RPC / Protobuf
+- HTTP2 mit Go1.6
 - Middleware
-  - http://www.gorillatoolkit.org/pkg/handlers
-  - https://justinas.org/writing-http-middleware-in-go/
-  - gorilla/context
-- Alternative Router
-- Call State
-- Web Frameworks
-  - Gorilla
+  - Chaining von Handlern
+  - Handler aus dem Gorilla Toolkit
+- Context
+- gorilla/context
+- Web Frameworks & alternative Router
+  - `julienschmidt/httprouter`
+  - Gorilla Toolkit
   - Gocraft/web
 - Web Sockets
-- HTTP2 mit Go1.6
-
+- Databases mit `jinzhu/gorm`
+- Übung: Testen eines Handlers
 
 ### Workshop 7
 * Größere Projekte organisieren
