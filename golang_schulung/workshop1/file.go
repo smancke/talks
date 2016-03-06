@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
 	file, err := os.Create("/tmp/hello")

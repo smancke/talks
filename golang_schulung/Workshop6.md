@@ -203,6 +203,7 @@ func UserByUsername(username string) (*User, error) {
 }
 ```
 
+
 ## Übung: Testen eines Handlers
 Schreibe einen Handler mit einem Framework Deiner Wahl und teste
 diesen mit dem HttpRecorder.

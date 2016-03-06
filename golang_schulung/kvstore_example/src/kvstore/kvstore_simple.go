@@ -36,7 +36,7 @@ func main() {
 	}
 }
 
-func handleCommand(store map[string]string, arg string) bool {
+func handleCommand(store map[string]string, arg string) (modified bool) {
 	if strings.Contains(arg, "=") {
 
 		kv := strings.SplitN(arg, "=", 2)

@@ -15,6 +15,6 @@ func main() {
 	if out, err := c.Output(); err != nil {
 		fmt.Printf("error: %v", err)
 	} else {
-		fmt.Printf("> %v", string(out))
+		fmt.Printf("> %s", out)
 	}
 }
