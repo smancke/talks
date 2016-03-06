@@ -1,0 +1,8 @@
+
+
+FROM scratch
+
+COPY google_query /google_query
+COPY ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+
+CMD ["/google_query"]

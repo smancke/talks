@@ -119,10 +119,17 @@
 - Übung: Testen eines Handlers
 
 ### Workshop 7
-* Größere Projekte organisieren
-* Interssante Packages und Libraries
-- Rundgang durch die Standard Library
 
-### Workshop 8
-* TBD
+
+# Workshop 7 - Verschiedenes
+- Golang im Docker Container
+- Libraries und Packages
+  - Package `time`
+  - Argumente und Umgebungsvariablen
+  - Logging
+  - Bolt
+  - UI Libraries
+- Coole Anwendungen, in Golang
+- Rundgang durch Guble
+- Gute Videos
 
