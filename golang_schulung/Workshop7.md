@@ -46,6 +46,9 @@ google-query-minimal        latest              c8cf922ef6f1        12 minutes a
 
 ## Libraries und Packages
 
+### awesome-go
+https://github.com/avelino/awesome-go
+
 ### Package `time`
 
 Type `Duration`: https://golang.org/pkg/time/#Duration
