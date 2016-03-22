@@ -87,6 +87,22 @@ import {sum, pi} from "lib/math";
 alert("2π = " + sum(pi, pi));
 ```
 
+Oder Default Exports:
+```JavaScript
+// lib/mathplusplus.js
+export * from "lib/math";
+export var e = 2.71828182846;
+export default function(x) {
+    return Math.log(x);
+}
+```
+
+```JavaScript
+// app.js
+import ln, {pi, e} from "lib/mathplusplus";
+alert("2π = " + ln(e)*pi*2);
+```
+
 
 ### Modules in Vue.JS
 
