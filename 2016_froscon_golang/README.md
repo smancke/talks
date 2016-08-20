@@ -5,11 +5,15 @@
 * Relativ neue Programmiersprache
  * go 1.0 in 2012
  * aktuell: go 1.7
+
+![Google Trends Golang](images/google_trends_golang.png)
+
 * BSD License
 * Erfunden und maintained von google
 * Statisches Typsystem
 * Garbage Collector
 * Statisch gelinkte binaries
+
 
 Haupt Einsatzzwecke
 ===================
@@ -35,6 +39,7 @@ Go hat mir den Spaß am Programmieren zurück gebracht!
 
 * Go versucht nicht schön zu sein, sondern: einfach und gut.
 * Go geht aus dem Weg und unterstützt einen sachen einfach umzusetzen.
+* Auch nach 3 Wochen Urlaub kann ich mich noch erinnern wie es funktioniert.
 
 Charakter
 =================
@@ -49,6 +54,28 @@ Syntax
 * Mächtiger `for` loop für alle Schleifentypen
 * `if` mit Initialisierung
 * Funktionen mit mehreren Rückgabewerten
+
+Typsystem
+=================
+* (Sehr) streng typisiert
+* Build in: Primitive, Maps und Slices
+* Interfaces
+
+Aliastypen
+------------
+
+    type Point [2]int
+
+Structs
+-----------
+
+    type User struct {
+	    UserName  string     `json:"userName"`
+	    NickName  string     `json:"nickName"`
+    }
+    
+    user := User{UserName: "Ben", NickName: "Utzer"}
+
 
 Syntax Beispiel
 =================
@@ -76,129 +103,275 @@ Syntax Beispiel
     fun
 
 
+Http Server Beispiel
+====================
+
+    package main
+    
+    import (
+	    "net/http"
+	    "os"
+    )
+    
+    func main() {
+        listen := "127.0.0.1:1234"
+	    if len(os.Args) > 1 {
+	        listen = os.Args[1]
+	    }
+    
+        handler := http.FileServer(http.Dir("./"))
+    
+	    panic(http.ListenAndServe(listen, handler))
+    }
+
 Tooling
-=========
-* Build + Test tools included
-* Super schneller Compiler
+===================
+Go hat einen super schnellen Compiler und
+umfangreiches tooling direkt integriert:
 
-Source Code Dependencies
+* `go vet` - Statische Fehleranalyse
+* `go fmt` - Einheitliche Code Formatierung
+* `go doc` - Doku Generator/Browser
+* `go generate` - Source Code 
+* `go test` - Test und Benchmark Runner mit Testcoverage report
+  
+go get
 =========================
-* Quellcode Dependencies
+Go's dependency Konzept
 
-Packages
+* Source Code Dependencies
+* Kein library-Konzept
+* Automatischer Download und Build über `go get package/name`
+
+Beispiel:
+
+    export GOPATH=`pwd`
+    go get github.com/smancke/servelocal
+
+Imports sind Referenzen auf Code Repositories:
+
+    import "github.com/gorilla/handlers"
+
+Testing
+===================
+OO in golang
 =================
+Go erzwingt keine objekt orintierte Programmierung aber unterstützt diese aber:
 
-Einfaches gutes Package Konzept
+Typen können Mehtoden haben.
 
-Deklaration über:
-```go
-package mypackage
-```
+    type Point [2]int
 
-* Groß geschriebene Bezeichner werden exportiert, alle anderen sind nur im package sichtbar
-* Die Aufteilung von Code auf Dateien in einem Package kann beliebig erfolgen
+    type Item struct {
+        Name string
+        Pos  Point
+    }
+    
+    func (item *Item) MoveTo(vector Point) {
+        item.Pos = item.Pos.Add(vector)
+    }
+
+    func (item *Item) String() string {
+	    return fmt.Sprinf("%v (%v,%v)", item.Name, item.Pos[0], item.Pos[1])
+    }
+
+Es gibt keine Vererbung, aber Interfaces und Embedding mit Delegation.
+
+Interfaces
+=============
+* Interfaces folgen dem Duck-Typing Ansatz: Was aussieht wie eine Ente, ist auch eine Ente!
+* Der Consumer legt das Interface fest, nicht der implementierer.
+
+Vorteil
+--------
+* Enkoppelung von Consumer und Provider
+* Kleinere Interfaces
 
 
-Source Code Dependencies:
-```go
-import  "github.com/gocraft/web"
-```
+Interface Example
+==================
 
-Nutzung im Code über letzten Pfadteil:
-```go
-web.Router
-```
+    type myInt int
+    
+    func (i myInt) String() string {
+	    return strconv.Itoa(int(i))
+    }
+    
+    type Printable interface {
+	    String() string
+    }
+    
+    func Test_Stringer(t *testing.T) {
+	    printable := []Printable{
+	        &Item{Name: "Something"},
+	        myInt(42),
+	        os.ModeAppend | os.ModeSocket,
+	    }
+    
+	    for _, p := range printable {
+	        fmt.Println(p.String())
+	    }
+    }
 
-Verzögerte Ausführung `defer`
+
+defer
 =============================
+* Verzögert die Ausführung bis an das Ende der aktuellen Funktion
+* Die Ausführung wird garantiert (vgl. finally{} in Java)
 
-defer statements werden am Ende der funktion ausgeführt (== finally{})
+Beispiel:
 
-```go
-file, err := os.Open(srcName)
-if err != nil {
-    return
-}
-defer src.Close()
-```
+    import "os"
 
-Typsystem
-=================
-* Streng typisiert
-* Structs
-* Build in maps und slices
-* Interfaces und Ducktyping
+    func main() {
+	    file, err := os.Create("/tmp/hello")
+	    if err != nil {
+		    fmt.Printf("error: %v", err)
+		    return
+        }
+	    defer file.Close()
+        
+	    file.WriteString("Hello World\n")
+    }
 
-`structs`
-=================
-
-```go
-type User struct {
-	UserName  string     `json:"userName"`
-	NickName  string     `json:"nickName"`
-}
-
-user := User{UserName: "Ben", NickName: "Utzer"}
-```
-
-Unterstützung für Delegation und Embedding.
 
 Fehlerbehandlung
 =================
-Fehlerhandling läuft meist über Rückgabewert.
-```go
-if err := machEtwas(); err != nil {
-    // handle error
-}
-```
+Fehlerhandling läuft meist über die Rückgabe von `error`-Werten
 
-Es gibt aber auch ein Equivalent zu Exceptions.
-```go
-func travel() {
-	defer func() {
-	    if r := recover(); r != nil {
-            fmt.Println(r, "dont't panic!", )
+    if err := machEtwas(); err != nil {
+        // handle error
+    }
+
+
+Es gibt aber auch ein Equivalent zu Exceptions:
+
+    func travel() {
+	    defer func() {
+	        if r := recover(); r != nil {
+                fmt.Println(r, "dont't panic!", )
+            }
+	    }()
+	    panic("I lost my towel")
+    }
+
+
+Goroutinen
+==============
+Goroutinen sind eine leichtgewichtige Alternative zu Theads.
+Sie werden von der Go Runtime auf echte Threads verteilt.
+
+Test auf *i7-6600U*:
+
+__1 Mio Goroutinen lassen sich in 1,3 Sekunden ausführen.__
+
+(Vgl.: 1 Mio Java Threads: ~30 Sekunden)
+
+##  Syntax
+
+    go doInBackground()
+
+Oder inline definiert:
+
+    go func() {
+	    for i := 0; i < 100; i++ {
+		    fmt.Println("in background inline")
+	    }
+    }()
+    
+Channel
+========
+
+*Do not communicate by sharing memory; instead, share memory by communicating.*
+
+* Ein Channel ist eine typisierte fifo-Queue mit fester Länge
+* Der Channel kann Daten beliebigen Typs aufnehmen
+* Alle Operationen auf Channel sind robust gegenüber paralleler Zugriffe
+
+Erstellen eines Channels: `make (chan DataType, size)`
+
+Schreiben in den Channel: `ch <- value`
+
+Lesen vom Channel: `value <- ch`
+
+
+* Operationen auf einen Channel blockieren
+* Channel können gepuffert oder ungepuffert sein
+
+Channel Beispiele
+===============================
+
+Asynchron Schreiben
+--------------------
+
+    ch := make(chan string)
+    
+    go func() {
+	    ch <- "The Answer is "
+	    ch <- "42"
+    }()
+
+    fmt.Println(<-ch)
+    fmt.Println(<-ch)
+
+
+Timer
+-------------------
+
+    timeoutChannel := time.After(time.Second)
+    <-timeoutChannel
+    fmt.Println("One second is elapsed")
+
+
+Buffered Channel
+===================
+Ein channel kann eine Buffer-Size besitzen.
+Schreiben blockiert nicht, solange der Channel noch Platz hat.
+
+Beispiel:
+----------
+
+    ch := make(chan string, 2)
+    
+    ch <- "The Answer is "
+    ch <- "42"
+    // ch <- "one more write would block!"
+
+    fmt.Println(<-ch)
+    fmt.Println(<-ch)
+
+
+Select
+==========
+
+* Die `select` Anweisung kann verwendet werden um mehrere Channel Operationen in einem durch zu führen.
+* Bei mehreren Case-Zweigen wird der Zweig ausgeführt, der als erster verfübar ist.
+
+Beispiel:
+----------
+
+    ch := make(chan string, 2)
+    ch <- "The Answer is "
+	ch <- "42"
+        
+	for {
+	    select {
+		    case msg := <-ch:
+	            fmt.Println(msg)
+	        default:
+	            fmt.Println("no input available.")
+	            return
         }
-	}()
-	panic("I lost my towel")
-}
-```
+    }
 
-Objecte
-=================
-
-Funktionen können auf eigenen Datentypen definiert werden.
-
-```go
-func (user *User) CallUser(msg string) {
-    fmt.Printf("Hallo %v: %v", user.NickName, msg)
-}
-
-user := User{UserName: "Ben", NickName: "Utzer"}
-user.CallUser("hör gut zu!")
-```
-
-`go` routinen
-=================
-Leichtgewichtige co-routinen, die im Hintergrund laufen.
-```go
-go doSomething()
-```
-
-`channel`
-=================
-
-Channel sind Datenstrukturen zur sicheren Kommunikation bei paralleler Verarbeitung. 
-```go
-func waitForTermination(callback func()) {
-	sigc := make(chan os.Signal)
-	signal.Notify(sigc, syscall.SIGINT, syscall.SIGTERM)
-	log.Printf("Got singal '%v' .. exit more or less greacefully now", <-sigc)
-	callback()
-	os.Exit(0)
-}
-```
-
+    
 Danke ...
 ================
-... Slides auf github: [https://github.com/smancke/talks](https://github.com/smancke/talks/tree/master/2015_froscon_docker_in_production)
+
+Slides als Markdown:
+
+[https://github.com/smancke/talks/2016\_froscon\_golang/](https://github.com/smancke/talks/tree/master/2016_froscon_golang)
+
+Ausführliche Schulung:
+
+[https://github.com/smancke/talks/tree/master/golang\_schulung](https://github.com/smancke/talks/tree/master/golang_schulung)

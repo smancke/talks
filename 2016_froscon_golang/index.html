@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>docker in production</title>
+    <title>golang rockt!</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=800" />
     <link href="slide/lib/bootstrap.css" rel="stylesheet" />
@@ -11,10 +11,11 @@
     <style>
     </style>
     <script>
-     function updateMarkdown(etag) {
+     function updateMarkdown(etag, lastModified) {
        $.get("README.md", function( data, textStatus, jqXHR ) {
-         var etagNew = jqXHR.getResponseHeader("ETag");
-         if (etagNew != etag) {
+         var etagNew = jqXHR.getResponseHeader("Etag");
+         var lastModifiedNew = jqXHR.getResponseHeader("Last-Modified");
+         if (etagNew != etag || lastModifiedNew != lastModified) {
            $('#content').html( markdown.toHTML(data) );
            var lastHeader = undefined;
            $('#content').find('h1').each(function(index, header) {
@@ -32,14 +33,14 @@
          }
          if (location.hostname == '127.0.0.1' || location.hostname == 'localhost') {
            window.setTimeout(function() {
-             updateMarkdown(etagNew);
-           }, 100);
+             updateMarkdown(etagNew, lastModifiedNew);
+           }, 500);
          }
        })
      }
      
      $(function() {
-       updateMarkdown("none");
+       updateMarkdown("none", "none");
      });
     </script>
   </head>
