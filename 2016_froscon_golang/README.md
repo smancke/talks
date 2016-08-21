@@ -43,7 +43,7 @@ Go hat mir den Spaß am Programmieren zurück gebracht!
 
 Charakter
 =================
-TODO: Mindmap 
+![Golang Charakter](images/golang_characteristics.png)
 
 Syntax
 =================
@@ -154,6 +154,24 @@ Imports sind Referenzen auf Code Repositories:
 
 Testing
 ===================
+* Alle Dateien mit der Endung `_test.go` beinhalten testcode
+* `go test <package>`
+* Tests sind Funktionen mit der Signatur: `func Test_*(t *testing.T)`
+
+Beispiel:
+
+    package foo
+    
+    import "testing"
+
+    func Test_Simple(t *testing.T) {
+    
+        t.Logf("This Test fails")
+	    t.Fail()
+    
+    }
+
+
 OO in golang
 =================
 Go erzwingt keine objekt orintierte Programmierung aber unterstützt diese aber:
@@ -186,7 +204,7 @@ Vorteil
 --------
 * Enkoppelung von Consumer und Provider
 * Kleinere Interfaces
-
+* Kompatibilität auf Basis der Signatur, nicht des Typnamens
 
 Interface Example
 ==================
@@ -390,11 +408,11 @@ Slides:
 
 Beispiele & Markdown:
 
-[https://github.com/smancke/talks/](https://github.com/smancke/talks/tree/master/2016_froscon_golang)
+[https://github.com/smancke/talks/](https://github.com/smancke/talks/tree/gh-pages/2016_froscon_golang)
 
 Ausführliche Schulung:
 
-[https://github.com/smancke/talks/tree/master/golang\_schulung](https://github.com/smancke/talks/tree/master/golang_schulung)
+[https://github.com/smancke/talks/tree/gh-pages/golang\_schulung](https://github.com/smancke/talks/tree/gh-pages/golang_schulung)
 
 A Tour of Go:
 
