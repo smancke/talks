@@ -214,6 +214,22 @@ Interface Example
     }
 
 
+First Order Functions
+======================
+Go unterstützt Funktionen auf erster Ebene:
+
+    f := func(message string) {
+		println(message)
+	}
+    
+	f("hello froscon")
+
+Auch Funktionen sind typisiert, z.B.:
+
+    type F func(string)
+
+*Aber:* Durch strenge Typisierung und fehlende Generics sind funktionale Elemente wie map/reduce leider schlecht umsetzbar.
+
 defer
 =============================
 * Verzögert die Ausführung bis an das Ende der aktuellen Funktion
@@ -354,9 +370,9 @@ Beispiel:
     ch <- "The Answer is "
 	ch <- "42"
         
-	for {
-	    select {
-		    case msg := <-ch:
+    for {
+        select {
+            case msg := <-ch:
 	            fmt.Println(msg)
 	        default:
 	            fmt.Println("no input available.")
@@ -368,10 +384,18 @@ Beispiel:
 Danke ...
 ================
 
-Slides als Markdown:
+Slides:
 
-[https://github.com/smancke/talks/2016\_froscon\_golang/](https://github.com/smancke/talks/tree/master/2016_froscon_golang)
+[https://smancke.github.com/talks/2016\_froscon\_golang/](https://smancke.github.com/talks/2016\_froscon\_golang/)
+
+Beispiele & Markdown:
+
+[https://github.com/smancke/talks/](https://github.com/smancke/talks/tree/master/2016_froscon_golang)
 
 Ausführliche Schulung:
 
 [https://github.com/smancke/talks/tree/master/golang\_schulung](https://github.com/smancke/talks/tree/master/golang_schulung)
+
+A Tour of Go:
+
+[https://tour.golang.org](https://tour.golang.org)
