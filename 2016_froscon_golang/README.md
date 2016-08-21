@@ -19,8 +19,8 @@ Haupt Einsatzzwecke
 ===================
 
 * Server side prgramming
-* Datenberarbeitung
-* HTTP Server
+* Datenverarbeitung
+* HTTP Server und Reverse-Proxies
 * Microservices
 
 Projekte in Go
@@ -132,7 +132,7 @@ umfangreiches tooling direkt integriert:
 * `go vet` - Statische Fehleranalyse
 * `go fmt` - Einheitliche Code Formatierung
 * `go doc` - Doku Generator/Browser
-* `go generate` - Source Code 
+* `go generate` - Source Code Generierung
 * `go test` - Test und Benchmark Runner mit Testcoverage report
   
 go get
@@ -273,10 +273,11 @@ Fehlerbehandlung
 =================
 Fehlerhandling läuft meist über die Rückgabe von `error`-Werten
 
-    if err := machEtwas(); err != nil {
+    if value, err := machEtwas(); err != nil {
         // handle error
+    } else {
+        // use value
     }
-
 
 Es gibt aber auch ein Equivalent zu Exceptions:
 
