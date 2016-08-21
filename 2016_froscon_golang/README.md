@@ -18,7 +18,7 @@
 Haupt Einsatzzwecke
 ===================
 
-* Server side prgramming
+* Server side programming
 * Datenverarbeitung
 * HTTP Server und Reverse-Proxies
 * Microservices
@@ -37,8 +37,10 @@ Warum ich go verwende?
 ======================
 Go hat mir den Spaß am Programmieren zurück gebracht!
 
-* Go versucht nicht schön zu sein, sondern: einfach und gut.
-* Go geht aus dem Weg und unterstützt einen sachen einfach umzusetzen.
+* Es versucht nicht schön zu sein, sondern: einfach und gut.
+
+* Um komplizierte Probleme zu lösen brauche ich Werkzeuge, die einfach zu beherschen sind.
+
 * Auch nach 3 Wochen Urlaub kann ich mich noch erinnern wie es funktioniert.
 
 Charakter
@@ -400,6 +402,24 @@ Beispiel:
     }
 
     
+Links und Doku
+================
+
+Golang Doku: [https://golang.org/doc/](https://golang.org/doc/)
+
+
+A Tour of Go: [https://tour.golang.org](https://tour.golang.org)
+
+
+Schulung mit Beispielen:
+
+[https://github.com/smancke/talks/tree/gh-pages/golang\_schulung](https://github.com/smancke/talks/tree/gh-pages/golang_schulung)
+
+
+Programming in Go:
+
+![Programming in Go](images/golang_book.jpg)
+
 Danke ...
 ================
 
@@ -411,10 +431,3 @@ Beispiele & Markdown:
 
 [https://github.com/smancke/talks/](https://github.com/smancke/talks/tree/gh-pages/2016_froscon_golang)
 
-Ausführliche Schulung:
-
-[https://github.com/smancke/talks/tree/gh-pages/golang\_schulung](https://github.com/smancke/talks/tree/gh-pages/golang_schulung)
-
-A Tour of Go:
-
-[https://tour.golang.org](https://tour.golang.org)
