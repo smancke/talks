@@ -178,7 +178,7 @@ OO in golang
 =================
 Go erzwingt keine objekt orintierte Programmierung aber unterstützt diese aber:
 
-Typen können Mehtoden haben.
+Typen können Methoden haben.
 
     type Point [2]int
 
@@ -200,7 +200,7 @@ Es gibt keine Vererbung, aber Interfaces und Embedding mit Delegation.
 Interfaces
 =============
 * Interfaces folgen dem Duck-Typing Ansatz: Was aussieht wie eine Ente, ist auch eine Ente!
-* Der Consumer legt das Interface fest, nicht der implementierer.
+* Der Consumer legt das Interface fest, nicht der Implementierer.
 
 Vorteil
 --------
