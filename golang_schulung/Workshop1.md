@@ -87,12 +87,21 @@ a := 42
 b := uint64(a)
 ```
 
-### Array & Slices
-* Arrays haben eine feste Größe
-* Slices sind eine Referenz auf ein Array mit einem Start- und Index
-
+### Arrays
+Arrays haben eine feste Größe. Sie sind recht unflexibel und werden selten direkt verwendet.
 ```go
 farben := [5]string{"black", "red", "blue", "green", "white"}
+fmt.Println(len(farben))
+fmt.Println(farben[0])
+```
+
+### Slices
+Slices bieten einen flexiblen Listen-Typ. Intern werden die Daten in einem Array gespeichert,
+so dass ein Slice eine eine Referenz auf ein Array mit einem Start- und Index
+
+```go
+
+farben := []string{"black", "red", "blue", "green", "white"}
 
 bunt := farben[1 : len(farben)-1]
 fmt.Println(bunt)
@@ -177,7 +186,7 @@ Referenzen auf structs:
 // copy by value
 person1 := Person{
 	Name: "Mancke",
-    }
+}
     
 person2 := person1
 person2.Name = "Meyer"
