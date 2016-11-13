@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+      
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo
+      MYSQL_DATABASE: demo
+      MYSQL_ROOT_PASSWORD: demo
+    ports:
+      - 3306:3306
+    

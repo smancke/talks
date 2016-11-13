@@ -11,7 +11,7 @@ func main() {
 	}
 
 	if data, err := readFromDatabase(); err != nil {
-		fmt.Println("error reading data")
+		fmt.Println("error reading data " + err.Error())
 	} else {
 		fmt.Println(data)
 	}
@@ -19,5 +19,5 @@ func main() {
 }
 
 func readFromDatabase() (string, error) {
-	return "some data", nil
+	return "some data", fmt.Errorf("foo %v", "bar")
 }

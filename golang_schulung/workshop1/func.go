@@ -2,15 +2,19 @@ package main
 
 import "fmt"
 
+type F func(Name)
+
+type Name string
+
 func main() {
 
-	var hello = func(name string) {
-		fmt.Println("Hello " + name)
+	var hello = func(name Name) {
+		fmt.Printf("Hello %v\n", name)
 	}
 
-	var executer = func(name string, f func(string)) {
+	var executer = func(name Name, f F) {
 		f(name)
 	}
 
-	executer("Marvin", hello)
+	executer(Name("Marvin"), hello)
 }
