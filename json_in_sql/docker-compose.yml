@@ -15,4 +15,10 @@ services:
       MYSQL_ROOT_PASSWORD: demo
     ports:
       - 3306:3306
-    
+
+  arangodb:
+    image: arangodb
+    environment:
+      ARANGO_ROOT_PASSWORD: demo
+    ports:
+      - 8529:8529

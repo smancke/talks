@@ -1,6 +1,9 @@
 package main
 
 func main() {
+	println("\nArangoDB:")
+	aragnoDemo()
+
 	println("\nSqlite3:")
 	sqliteDemo()
 
