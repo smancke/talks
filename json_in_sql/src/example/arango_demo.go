@@ -14,24 +14,23 @@ func aragnoDemo() {
 	s.CreateDB("demo", nil)
 
 	if !s.DB("demo").ColExist("cities") {
-		cities := ara.NewCollectionOptions("cities", true)
-		ch(s.DB("demo").CreateCollection(cities))
+		ch(s.DB("demo").CreateCollection(ara.NewCollectionOptions("cities", true)))
+
+		cities := s.DB("demo").Col("cities")
+		m := StartMeasure("insert cities")
+		maxId = IterateCities(func(city *City) {
+			ch(cities.Save(city))
+			m.Action()
+		})
+		m.End()
+
+		err = s.DB("demo").Col("cities").CreateHash(false, "Id")
+		if err != nil {
+			panic(err)
+		}
 	}
 
-	cities := s.DB("demo").Col("cities")
-	m := StartMeasure("insert cities")
-	maxId = IterateCities(func(city *City) {
-		ch(cities.Save(city))
-		m.Action()
-	})
-	m.End()
-
-	err = s.DB("demo").Col("cities").CreateHash(false, "Id")
-	if err != nil {
-		panic(err)
-	}
-
-	m = StartMeasure("select by json Id")
+	m := StartMeasure("select by json Id")
 	for i := 0; i < 1000; i++ {
 		queryId := int(r.Int31n(int32(70000)))
 		query := fmt.Sprintf(`FOR i in cities FILTER i.Id == %d RETURN i`, queryId)
