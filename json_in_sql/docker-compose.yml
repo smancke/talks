@@ -22,3 +22,12 @@ services:
       ARANGO_ROOT_PASSWORD: demo
     ports:
       - 8529:8529
+
+
+  elasticsearch:
+    image: elasticsearch:2
+    environment:
+     # This helps ES out with memory usage
+      ES_JAVA_OPTS: "-Xmx1g -Xms1g"
+    ports:
+      - 9200:9200

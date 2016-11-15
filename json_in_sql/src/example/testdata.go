@@ -25,8 +25,6 @@ func IterateCities(callback func(city *City)) int {
 	}
 	defer file.Close()
 
-	city := &City{}
-
 	id := 0
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -36,6 +34,7 @@ func IterateCities(callback func(city *City)) int {
 			panic("error rading line: " + line)
 		}
 
+		city := &City{}
 		city.Id = id
 		city.Country = record[0]
 		city.City = record[1]
