@@ -1,9 +1,6 @@
 package main
 
 func main() {
-	println("\nElasticsearch:")
-	elasticsearchDemo()
-
 	println("\nSqlite3:")
 	sqliteDemo()
 
@@ -15,4 +12,7 @@ func main() {
 
 	println("\nArangoDB:")
 	aragnoDemo()
+
+	println("\nElasticsearch:")
+	elasticsearchDemo()
 }
