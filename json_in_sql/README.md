@@ -56,43 +56,6 @@ select by json Id: 1655/sec
 Elasticsearch:
 insert cities: 17840/sec
 select by json Id: 2386/sec
-smancke@smob:~/hack/talks/json_in_sql$ ./build_and_run.sh 
-jsoninsql_postgres_1 is up-to-date
-jsoninsql_elasticsearch_1 is up-to-date
-jsoninsql_arangodb_1 is up-to-date
-jsoninsql_mysql_1 is up-to-date
-
-Sqlite3:
-insert cities: 73467/sec
-select by column id: 30233/sec
-select by column id_no_key: 159/sec
-select by json json_extract()': 37/sec
-create function index
-select by json json_extract()': 42865/sec
-
-Postgres with JsonB:
-insert cities: 12443/sec
-select by column id: 11953/sec
-select by column id_no_key: 122/sec
-select by json data->'Id': 28/sec
-create GIN index
-select by json data->'Id': 28/sec
-select by json data @> '{"Id": $1}': 6478/sec
-create function index
-select by json data->'Id': 6925/sec
-                                                                                                                      
-Mysql:                                                                                                                
-insert cities: 10278/sec                                                                                              
-select by column id: 9703/sec                                                                                         
-select by column id_no_key: 29/sec                                                                                    
-select by data->'$.Id': 20/sec
-
-ArangoDB:
-select by json Id: 1558/sec
-
-Elasticsearch:
-insert cities: 17911/sec
-select by json Id: 2326/sec
 ```
 
 ## References
