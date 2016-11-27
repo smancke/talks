@@ -5,10 +5,13 @@ import (
 )
 
 func main() {
+	rx, err := regexp.Compile("java")
+	if err != nil {
+		panic(err)
+	}
+
 	terms := []string{"java", "is", "fun"}
 	for _, value := range terms {
-		rx := regexp.MustCompile("java")
-		value = rx.ReplaceAllString(value, "golang")
-		println(value)
+		println(rx.ReplaceAllString(value, "golang"))
 	}
 }
