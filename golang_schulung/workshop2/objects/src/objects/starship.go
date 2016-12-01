@@ -10,8 +10,10 @@ type Starship struct {
 func NewStarship(name string, speed int) *Starship {
 	ship := &Starship{
 		Speed: speed,
+		Item: Item{
+			Name: name,
+		}
 	}
-	ship.Item.Name = name
 	return ship
 }
 
