@@ -13,4 +13,5 @@ func main() {
 	default:
 		fmt.Printf("Black")
 	}
+
 }
