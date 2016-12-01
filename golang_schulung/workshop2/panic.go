@@ -8,9 +8,10 @@ func main() {
 
 func travel() {
 	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println(r, "..dont't panic!")
+		if p := recover(); p != nil {
+			fmt.Println(p, "..dont't panic!")
 		}
 	}()
+
 	panic("I lost my towel")
 }
