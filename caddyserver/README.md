@@ -92,9 +92,7 @@ http://localhost:2015 {
 }
 ```
 
-
 ## UI Composition
-
-[caddy-uic](https://github.com/smancke/caddy-uic/)
-[lib-compose](https://github.com/tarent/lib-compose/blob/master/composition/README.md)
+* [caddy-uic](https://github.com/smancke/caddy-uic/)
+* [lib-compose](https://github.com/tarent/lib-compose/blob/master/composition/README.md)
 
