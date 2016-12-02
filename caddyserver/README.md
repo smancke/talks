@@ -10,12 +10,12 @@ Caddy is an alternative web server that is easy to configure and use.
 ## Installation
 
 ### Way one: The golang way
-`shell
+```shell
 go get  github.com/mholt/caddy/caddy
-`
+```
 
 ### Way two: Custom Caddy
-`go
+```go
 package main
 
 import (
@@ -29,7 +29,7 @@ import (
 func main() {
         caddymain.Run()
 }
-`
+```
 
 ### Way three: Click & Download
 
@@ -39,9 +39,9 @@ https://caddyserver.com/download
 ## Caddy Hello World
 
 Just start to serve the local directory:
-`shell
+```shell
 ./caddy
-`
+```
 
 ## Features
 
@@ -50,21 +50,21 @@ Caddy has build in support for automatic TLS
 and of course serves HTTP2.
 
 E.g. Caddyfile with a self signed certificate:
-`
+```
 https://localhost:8080/
 
 tls self_signed
-`
+```
 
 ### Git
 Automated Git Checkout
-`
+```
 git git@git.mancke.net:mancke.net/web.git {
                 key      /cfg/id_rsa
                 path     /tmp/caddy-demo-data
                 hook /git-trigger secret
 }
-`
+```
 
 ### Marktdown support
 
@@ -75,7 +75,7 @@ git git@git.mancke.net:mancke.net/web.git {
 * [Loginsrv](https://github.com/tarent/loginsrv)
 * [OSIAM](https://osiam.org/)
 
-`
+```
 http://localhost:2015 {
 
   jwt {
@@ -90,7 +90,7 @@ http://localhost:2015 {
   }
 
 }
-`
+```
 
 
 ## UI Composition
