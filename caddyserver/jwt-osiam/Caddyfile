@@ -1,0 +1,17 @@
+
+http://localhost:2015 {
+
+  jwt {
+    path /
+    redirect /login
+  }
+  
+  loginsrv / {
+    success-url /
+    backend provider=simple,bob=secret
+    backend provider=osiam,endpoint=http://localhost:8080,clientId=example-client,clientSecret=secret
+  }
+
+}
+  
+
