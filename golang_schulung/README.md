@@ -1,6 +1,6 @@
 # Golang Schulung
 
-## Angeda
+## Angenda
 
 ### Workshop 1
 - Hello World
