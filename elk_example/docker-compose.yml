@@ -8,7 +8,7 @@ services:
     ports:
       - 9200:9200
     volumes:
-      - "$data_dir:/usr/share/elasticsearch/data"
+      - "$data_dir/es:/usr/share/elasticsearch/data"
     restart: always
 
   kibana:
@@ -34,4 +34,13 @@ services:
       options:
         gelf-address: "udp://127.0.0.1:5000"
         tag: "toom-content"
-                                    
+
+  filebeat:
+    image: prima/filebeat
+    volumes:
+      - "$data_dir/filebeat:/data/"
+      - "./filebeat/logs/:/logs/"
+      - "./filebeat/filebeat.yml:/filebeat.yml"
+      - "./filebeat/filebeat.template.json:/filebeat.template.json"
+      - "./filebeat/filebeat.template-es2x.json:/filebeat.template-es2x.json"
+      

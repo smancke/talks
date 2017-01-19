@@ -1,0 +1,19 @@
+
+filebeat.prospectors:
+
+- input_type: log
+  paths:
+    - /logs/*.log
+
+  exclude_lines: ["^DBG"]
+
+  fields:
+    level: info
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+
+#----------------------------- Logstash output --------------------------------
+#output.logstash:
+  # The Logstash hosts
+  #hosts: ["localhost:5044"]
