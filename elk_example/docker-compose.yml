@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+
+  elasticsearch:
+    image: elasticsearch:5
+    command: "elasticsearch -Ecluster.name=logging"
+    ports:
+      - 9200:9200
+    volumes:
+      - "$data_dir:/usr/share/elasticsearch/data"
+    restart: always
+
+  kibana:
+    image: kibana:5
+    ports:
+      - 80:5601
+    environment:
+      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+    restart: always
+
+  logstash:
+    image: logstash-example
+    ports:
+      - 5000:5000/udp
+    restart: always
+
+  webserver:
+    image: nginx
+    ports:
+      - 8080:80
+    logging:
+      driver: "gelf"
+      options:
+        gelf-address: "udp://127.0.0.1:5000"
+        tag: "toom-content"
+                                    
