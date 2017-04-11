@@ -19,5 +19,5 @@ func main() {
 }
 
 func readFromDatabase() (string, error) {
-	return "some data", fmt.Errorf("foo %v", "bar")
+	return "", fmt.Errorf("foo %v", "bar")
 }

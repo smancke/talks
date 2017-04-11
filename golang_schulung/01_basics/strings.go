@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+
 	b := []byte{72, 97, 108, 108, 111, 32, 87, 101, 108, 116}
 	s := string(b)
 	fmt.Println(s)
@@ -17,7 +18,7 @@ func main() {
 	fmt.Println(strings.ToLower(s))
 
 	var i int
-	i, err := strconv.Atoi("42")
+	i, err := strconv.Atoi("42x")
 	if err != nil {
 		panic("not an integer")
 	}

@@ -4,9 +4,9 @@ import "fmt"
 
 func main() {
 
-	color := "nothing"
+	color := "blue"
 	switch color {
-	case "green":
+	case "green", "blue":
 		fmt.Printf("Green")
 	case "red":
 		fmt.Printf("Red")

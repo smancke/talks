@@ -2,9 +2,9 @@ package main
 
 import "fmt"
 
-type F func(Name)
-
 type Name string
+
+type F func(Name)
 
 func main() {
 
