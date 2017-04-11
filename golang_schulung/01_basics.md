@@ -64,17 +64,12 @@ Slices bieten einen flexiblen Listen-Typ. Intern werden die Daten in einem Array
 so dass ein Slice eine eine Referenz auf ein Array mit einem Start- und Index
 
 ```go
+	farben := []string{"black", "red", "blue"}
+	farben = append(farben, "green", "white")
+	farben = farben[1 : len(farben)-1]
 
-farben := []string{"black", "red", "blue", "green", "white"}
-
-bunt := farben[1 : len(farben)-1]
-fmt.Println(bunt)
-
-bunt = append(bunt, "orange")
-fmt.Println(bunt)
-
-fmt.Println(len(farben[0:1])) // length: 1
-fmt.Println(cap(farben[0:1])) // capacity: 5
+	fmt.Println(len(farben))
+	fmt.Println(farben)
 ```
 
 Explizite Schreibweise:
