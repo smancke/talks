@@ -36,12 +36,12 @@ func main() {
 		Age   int
 		Male  bool
 	}{
-		{"Sebastian", "Mancke", 36, true},
-		{"Sabrina", "Mancke", 36, false},
-		{"Felix", "Mancke", 11, true},
-		{"Nils", "Mancke", 8, true},
-		{"Emils", "Mancke", 5, true},
-		{"Linus", "Mancke", 1, true},
+		{"Sebastian", "Mancke", 37, true},
+		{"Sabrina", "Mancke", 37, false},
+		{"Felix", "Mancke", 12, true},
+		{"Nils", "Mancke", 9, true},
+		{"Emils", "Mancke", 6, true},
+		{"Linus", "Mancke", 2, true},
 	}
 
 	t := template.New("template")

@@ -12,7 +12,7 @@ func NewStarship(name string, speed int) *Starship {
 		Speed: speed,
 		Item: Item{
 			Name: name,
-		}
+		},
 	}
 	return ship
 }

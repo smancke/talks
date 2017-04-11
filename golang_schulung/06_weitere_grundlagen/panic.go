@@ -14,4 +14,5 @@ func travel() {
 	}()
 
 	panic("I lost my towel")
+	fmt.Println("never reached")
 }
