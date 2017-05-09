@@ -23,10 +23,27 @@ func Test_flyToMiddleOfUniverse_Mock(t *testing.T) {
 
 	mock := NewMockFlyable(ctrl)
 
-	//mock.EXPECT().MoveTo(Point{0, 0})
+	//mock.EXPECT().MoveTo(Point{1, 0})
 	mock.EXPECT().MoveTo(gomock.Any()).Do(func(p Point) {
 		assert.Equal(t, Point{0, 0}, p)
 	})
 
 	flyToMiddleOfUniverse(mock)
+}
+
+func Test_flyToMiddleOfUniverse_FunctionMock(t *testing.T) {
+
+	mockWasCalled := false
+	mock := func(p Point) {
+		mockWasCalled = true
+	}
+	flyToMiddleOfUniverse(myFuncMock(mock))
+	assert.True(t, mockWasCalled)
+
+}
+
+type myFuncMock func(p Point)
+
+func (f myFuncMock) MoveTo(p Point) {
+	f(p)
 }
