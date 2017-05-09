@@ -27,7 +27,7 @@ bin/hello
 ## Weitere Befehle
 ```shell
 go build <package>    # Baut nur, ohne zu installieren
-go test <packages>    # Fürt Tests in den *_test.go aus
+go test <packages>    # Führt Tests in den *_test.go aus
 go get <packages>     # Holt und installiert alle Abhängigkeiten
 go get -t <package>   # Holt und installiert alle Abhängigkeiten inkl. der für die Tests
 go vet <package>      # Statische Fehleranalyse
