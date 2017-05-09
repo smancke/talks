@@ -7,10 +7,11 @@ type Person struct {
 }
 
 func main() {
-	// copy by value
 	person1 := Person{
 		Name: "Mancke",
 	}
+
+	// copy by value
 	person2 := person1
 
 	person2.Name = "Meyer"
