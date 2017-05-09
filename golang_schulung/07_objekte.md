@@ -114,6 +114,30 @@ func Test_Stringer(t *testing.T) {
 }
 ```
 
+# Mocking
+
+Mocking kann in go nicht dynamisch erfolgen. Mock-Frameworks verlangen eine Mock-Generierung zur Entwicklungszeit. Die Mocks werden dann üblicherweise mit eingecheckt. Z.b. [GoMock](https://github.com/golang/mock)
+
+```
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mock := NewMockMyInterface(ctrl)
+
+	mock.EXPECT(). ...
+```
+    
+Code Generierung in go:
+```
+//go:generate go get github.com/golang/mock/mockgen
+//go:generate $GOPATH/bin/mockgen -self_package objects -package objects -destination $GOPATH/src/objects/mocks_test.go objects Flyable
+func ...
+```
+
+```
+$ go generate .
+```
+
 # Übungen
 
 ## Übung 3: Key-Value Objekt Orientiert
