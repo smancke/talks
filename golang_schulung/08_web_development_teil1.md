@@ -163,7 +163,7 @@ handler(w, req)
 fmt.Printf("%d - %s", w.Code, w.Body.String())
 ```
 
-#### ResponseRecorder
+#### httptest.NewServer
 Startet einen Server auf einem zufälligen freien Port.
 
 ```go
