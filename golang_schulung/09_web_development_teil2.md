@@ -17,6 +17,28 @@ Generische Handler fungieren dabei als sog. Middleware.
 ```go
 loggingMiddleware(delegate http.Handler) http.Handler
 ```
+
+Beispiel:
+```go
+	chain := LoggingMiddleware(
+		AccessMiddleware(
+			helloWorld
+		)
+	)
+	panic(http.ListenAndServe(":8080", chain))
+```
+
+
+### Chaining mit `alice`
+https://github.com/justinas/alice
+
+```go
+	chain := alice.New(
+		LoggingMiddleware,
+		AccessMiddleware,
+	).Then(helloWorld)
+```
+
 ### Handler aus dem Gorilla Toolkit
 Handler sind generisch und können aus unterschielichen Frameworks kombiniert werden.
 

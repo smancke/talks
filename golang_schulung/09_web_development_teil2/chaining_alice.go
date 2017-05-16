@@ -2,17 +2,18 @@ package main
 
 import (
 	"fmt"
+	"github.com/justinas/alice"
 	"log"
 	"net/http"
 	"strings"
 )
 
 func main() {
-	chain := LoggingMiddleware(
-		AccessMiddleware(
-			helloWorld
-		)
-	)
+	chain := alice.New(
+		LoggingMiddleware,
+		AccessMiddleware,
+	).Then(helloWorld)
+
 	panic(http.ListenAndServe(":8080", chain))
 }
 
