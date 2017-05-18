@@ -8,11 +8,7 @@ import (
 )
 
 func main() {
-	chain := LoggingMiddleware(
-		AccessMiddleware(
-			helloWorld
-		)
-	)
+	chain := LoggingMiddleware(AccessMiddleware(helloWorld))
 	panic(http.ListenAndServe(":8080", chain))
 }
 
