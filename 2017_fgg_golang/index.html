@@ -6,6 +6,9 @@
     <link href="slide/lib/bootstrap.css" rel="stylesheet" />
     <script src="slide/lib/jquery.min.js"></script>
     <script src="slide/lib/markdown.min.js"></script>
+    <!-- highlight.js -->
+    <link href="slide/lib/highlight/atom-one-dark.css" rel="stylesheet" type="text/css">
+    <script language="javascript" src="slide/lib/highlight/highlight.pack.js"></script>
     <script src="slide/tarent-slide.js"></script>
     <link rel="stylesheet" href="slide/tarent-slide.css">
     <style>
@@ -30,6 +33,9 @@
            $(lastHeader).nextUntil(firstSlide).andSelf().detach().appendTo(newSlide);
 
            newSlideDeck().addAllSlides();
+           $('pre code').each(function(i, block) {
+             hljs.highlightBlock(block);
+           });           
          }
          if (location.hostname == '127.0.0.1' || location.hostname == 'localhost') {
            window.setTimeout(function() {

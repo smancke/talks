@@ -108,6 +108,7 @@ pre {
     margin-top: 20px;
     border: 0px;
     font-size: 22px;
+    padding: 0px;
 }
 code {
     contentEditable: true;
