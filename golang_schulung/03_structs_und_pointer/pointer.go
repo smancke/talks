@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 
-	a := 41
+	var a int = 41
 	var b *int
 
 	b = &a
