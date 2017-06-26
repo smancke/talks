@@ -4,6 +4,7 @@ import "fmt"
 import "strconv"
 
 func main() {
+
 	untypedList := []interface{}{"Hallo", 42, false}
 
 	for _, item := range untypedList {
