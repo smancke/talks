@@ -102,7 +102,11 @@ const (
     func Parse(layout, value string) (Time, error)
     func (t Time) Format(layout string) string
 ```
-    
+
+## Go Bindata
+
+TODO ..
+
 ### Argumente und Umgebungsvariablen
 
 ```

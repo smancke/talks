@@ -136,4 +136,3 @@ Beispiele:
 - Coole Anwendungen, in Golang
 - Rundgang durch Guble
 - Gute Videos
-

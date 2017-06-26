@@ -1,13 +1,42 @@
 # Workshop 6 - Web Development Teil 2
 
-## HTTP2 mit Go1.6
-Go 1.6 hat Unterstützung für HTTP2 über die bestehende HTTP API.
-Um HTTP2 setzt TLS voraus.
+## HTTP2 mit Go
+Seit Version 1.6 hat Go Unterstützung für HTTP2 über die bestehende HTTP API.
+HTTP2 setzt TLS voraus.
 
 ```go
 panic(http.ListenAndServeTLS(":8443", "server.pem", "server.key", nil))
 ```
 
+## Graceful Shutdown
+
+```go
+httpSrv := &http.Server{Addr: ":8080", Handler: handlerChain}
+
+go func() {
+	if err := httpSrv.ListenAndServe(); err != nil {
+		if err == http.ErrServerClosed {
+			fmt.Println("not accepting new connections")
+		} else {
+			fmt.Printf("error %v", err)
+		   	os.Exit(1)
+		}
+	}
+}()
+
+stop := make(chan os.Signal)
+signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
+
+sig := <-stop
+fmt.Printf("got %v, shutdown gracefully, now\n", sig)
+
+ctx, ctxCancel := context.WithTimeout(context.Background(), gracePeriod)
+
+httpSrv.Shutdown(ctx)
+fmt.Println("down")
+ctxCancel() // not needed, but good style
+```
+    
 ## Middleware
 
 ### Chaining von Handlern
