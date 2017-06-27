@@ -60,6 +60,8 @@ Alternativen:
 
 https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully
 
+https://www.youtube.com/watch?v=lsBF58Q-DnY
+
 ## Panic, Recover
 * `panic`: Löst ein Panic aus (ähnlich einer Exception)
 * `recover`: Fängt ein panic ab
