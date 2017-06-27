@@ -11,7 +11,7 @@ func main() {
 
 	object, err := readJsonObject("/tmp/nonExistingFile")
 	if err != nil {
-		fmt.Printf("error: %v", err)
+		fmt.Printf("error: %v\n", err)
 		return
 	}
 

@@ -34,10 +34,12 @@ func Test_flyToMiddleOfUniverse_Mock(t *testing.T) {
 func Test_flyToMiddleOfUniverse_FunctionMock(t *testing.T) {
 
 	mockWasCalled := false
-	mock := func(p Point) {
-		mockWasCalled = true
-	}
-	flyToMiddleOfUniverse(myFuncMock(mock))
+	mock := myFuncMock(
+		func(p Point) {
+			mockWasCalled = true
+		},
+	)
+	flyToMiddleOfUniverse(mock)
 	assert.True(t, mockWasCalled)
 
 }
