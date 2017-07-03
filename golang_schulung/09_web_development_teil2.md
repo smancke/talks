@@ -74,6 +74,42 @@ Handler sind generisch und können aus unterschielichen Frameworks kombiniert we
 http://www.gorillatoolkit.org/pkg/handlers
 
 ## Context
+
+### Go >= 1.7
+
+Seit Version 1.7 ist es sehr einfach geworden requestspezifische Informationen zu kommunizieren.
+
+#### Context
+Mit 1.7 wurde der Typ Context in die Standardbibliothek aufgenommen und kann so von Structs und Methoden dort genutzt werden. 
+```go 
+type Context interface {
+        Deadline() (deadline time.Time, ok bool)
+        Done() <-chan struct{}
+        Err() error
+        Value(key interface{}) interface{}
+}
+```
+Die Methode `Value(key interface{}) interface{}` kann genutzt werden um einen Wert aus einem Context zu holen.
+
+Die Funktion `func WithValue(parent Context, key, val interface{}) Context` kann genutzt werden um einen Context mit einem neuen Wert anzureichern.
+
+#### Request-Context
+
+Auch der  `http.Request`-Typ hat 2 neue Methoden erhalten:
+```go
+func (r *Request) Context() context.Context
+```
+Diese Methode liefert den Context welcher zum Request gehört. 
+
+```go
+func (r *Request) WithContext(ctx context.Context) *Request
+```
+Diese Methode setzt einen neuen Context und liefert den Request mit neuem Context.
+
+Hierdurch können sehr einfach Informationen im Requestscope durch Middlewares / Handlerchains hindurch transportiert und geteilt werden.
+
+### Go <= 1.6
+
 Request spezifische Daten lassen sich nur schwer an andere Handler mitgeben.
 
 Lösung: Globale Map `*http.Request->Daten`.
