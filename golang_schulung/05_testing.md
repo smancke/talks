@@ -94,6 +94,7 @@ func Test_Operations(t *testing.T) {
 }
 ```
 
-## Übung: Testing des Rechner-Programmes
+## Übung: Taschenrechner Programmes
 
-Teste die Funktionalität des Rechner-Programmes vollständig.
+* Schreibe einen einfachen Konsolen Taschenrechner 
+* Teste die Funktionalität des Rechner-Programmes vollständig.
