@@ -89,10 +89,10 @@ u := uint(f)
 
 Dies geht auch mit selbst definierten Typen.
 ```go
-	s := "string"
-	type myString string
-	var ms myString
-	ms = myString(s)
+s := "string"
+type myString string
+var ms myString
+ms = myString(s)
 ```
 
 
