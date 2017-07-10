@@ -51,35 +51,6 @@ a := 42
 b := uint64(a)
 ```
 
-### Arrays
-Arrays haben eine feste Größe. Sie sind recht unflexibel und werden selten direkt verwendet.
-```go
-farben := [5]string{"black", "red", "blue", "green", "white"}
-fmt.Println(len(farben))
-fmt.Println(farben[0])
-```
-
-### Slices
-Slices bieten einen flexiblen Listen-Typ. Intern werden die Daten in einem Array gespeichert,
-so dass ein Slice eine eine Referenz auf ein Array mit einem Start- und Index
-
-```go
-	farben := []string{"black", "red", "blue"}
-	farben = append(farben, "green", "white")
-	farben = farben[1 : len(farben)-1]
-
-	fmt.Println(len(farben))
-	fmt.Println(farben)
-```
-
-Explizite Schreibweise:
-```go
-slicename := make(type, len, cap)
-
-// example:
-farben := make([]string, 0, 5)
-```
-
 ### Maps
 ```go
 m := make(map[KeyType]ValueType)
@@ -102,34 +73,34 @@ _, exist := person["given"]
 fmt.Println(exist) // false
 ```
 
-
-## Text Ausgaben
+### Arrays
+Arrays haben eine feste Größe. Sie sind recht unflexibel und werden selten direkt verwendet.
 ```go
-import (
-	"fmt"
-	"os"
-)
+farben := [5]string{"black", "red", "blue", "green", "white"}
+fmt.Println(len(farben))
+fmt.Println(farben[0])
+```
 
-func main() {
-	var i = 42
+### Slices
+Slices bieten einen flexiblen Listen-Typ. Intern werden die Daten in einem Array gespeichert,
+so dass ein Slice eine Referenz auf ein Array mit einem Start- und End-Index ist.
 
-	// direct output
-	fmt.Print(i)
-	fmt.Print("\n")
+```go
+farben := []string{"black", "red", "blue"}
+farben = append(farben, "green")
+farben = farben[1 : len(farben)-1]
 
-	// output with newline
-	fmt.Println(i)
+fmt.Println(len(farben)) // 2
+fmt.Println(cap(farben)) // 5
+fmt.Println(farben)      // [red blue]
+```
 
-	// format values
-	fmt.Printf("the answer is %v\n", i)
+Explizite Schreibweise:
+```go
+slicename := make(type, len, cap)
 
-	// formating as string
-	s := fmt.Sprintf("the answer is %v\n", i)
-	fmt.Print(s)
-
-	// write to writer, e.g. stderr
-	fmt.Fprintf(os.Stderr, "the answer is %v\n", i)
-}
+// example:
+farben := make([]string, 0, 5)
 ```
 
 ## Strings
@@ -161,6 +132,39 @@ Das Package [strconv](https://golang.org/pkg/strconv/) enthält Funktionen zur K
 	fmt.Println(i)
 ```
     
+## Call by Value
+
+Grundsätzlich erfolgen Zuweisungen in Golang immer nach _call by value_.
+__Vorsicht__: Maps und Slices (und damit auch Strings) sind aber selbst Referenzen auf eine unterliegende Datenstruktur. Sie verhalten sie sich somit wie _call by reference_.
+
+## Text Ausgaben
+```go
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+	var i = 42
+
+	// direct output
+	fmt.Print(i)
+	fmt.Print("\n")
+
+	// output with newline
+	fmt.Println(i)
+
+	// format values
+	fmt.Printf("the answer is %v\n", i)
+
+	// formating as string
+	s := fmt.Sprintf("the answer is %v\n", i)
+	fmt.Print(s)
+
+	// write to writer, e.g. stderr
+	fmt.Fprintf(os.Stderr, "the answer is %v\n", i)
+}
+```
 
 ## Funktionen
 Normale Funktionen:
@@ -170,7 +174,7 @@ func name(parameter1 type, parameter2 type) (returnParam1 type, returnParam2 typ
 }
 ```
 
-Funktionen können wie andere daten zugewiesen werden:
+Funktionen können wie andere Daten zugewiesen werden:
 ```go
 var hello = func(name string) {
 	fmt.Println("Hello " + name)
