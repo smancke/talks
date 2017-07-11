@@ -140,10 +140,10 @@ $ go generate .
 
 ## Übungen
 
-### Übung 3: Key-Value Objekt Orientiert
+### Übung: Key-Value Objekt Orientiert
 Baue Deinen KV-Store so um, dass er intern eine Klasse Store verwendet,
 die die Operationen auf den internen Storage abstrahiert.
 
-### Übung 4: Testen
+### Übung: Testen
 * Teste die Klasse Store
 * Teste den aufrufenden Code der Klasse Store, gegen ein Mock-Objekt 

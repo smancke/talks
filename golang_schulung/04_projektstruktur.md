@@ -5,7 +5,7 @@ Der GOPATH ist der Suchpfad für Go packages.
 
 Seit go 1.8 ist der default bei nicht gesetztem GOPATH: `~/go`
 
-## Anlegen eines Workspace
+### Anlegen eines Workspace
 ```shell
 mkdir hello_world
 cd hello_world
@@ -13,7 +13,7 @@ export GOPATH=`pwd`
 mkdir -p src/hello
 ```
 
-## Praktischer Alias
+### Praktischer Alias
 ``
 alias gopath="export GOPATH=\`pwd\`; export PATH=\`pwd\`/bin:$PATH"
 ``
@@ -24,7 +24,7 @@ go install hello
 bin/hello
 ```
 
-## Weitere Befehle
+## Go Toolchain
 ```shell
 go build <package>    # Baut nur, ohne zu installieren
 go test <packages>    # Führt Tests in den *_test.go aus
@@ -36,7 +36,7 @@ go generate <package> # Source Code Generierung
 
 ```
 
-## go get
+### go get
 Go's dependency Konzept
 
 * Source Code Dependencies
@@ -52,8 +52,7 @@ Imports sind Referenzen auf Code Repositories:
 
     import "github.com/gorilla/handlers"
 
-## Sprachgrundlagen
-### Packages
+## Packages
 * Eine Datei besitzt eine Package Deklaration
 * Pro Verzeichnis gibt es nur ein package
 * Das Package `main` wird als Entrypoint verwendet

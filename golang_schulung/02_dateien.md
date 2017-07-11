@@ -54,13 +54,13 @@ func main() {
 }
 ```
 
-## Übung 2: cat Befehl
+## Übung: cat Befehl
 Implementiere die Basis-Funktionalität des `cat` Befehles unter Linux
 
-## Übung 3: tac Befehl
+## Übung: tac Befehl
 Implementiere die Basis-Funktionalität des `tac` Befehles unter Linux
 
-## Übung 4: wc Befehl
+## Übung: wc Befehl
 Implementiere die Basis-Funktionalität des `wc` Befehles unter Linux
 
 __Tipp:__ Schau Dir mal `bufio.Scanner` an zum Einlesen von Daten an.

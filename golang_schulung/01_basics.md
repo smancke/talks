@@ -247,10 +247,10 @@ default:
 }
 ```
 
-## Übung 1: IDE
+## Übung: IDE
 Probiere mehrere Editoren/IDEs aus und entscheide Dich für eine.
 
-## Übung 2: Multiplikationstabelle
+## Übung: Multiplikationstabelle
 
 __Eingabe__: n, maximale Zahl als Faktor als Parameter
 
