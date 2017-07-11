@@ -5,16 +5,11 @@
 ### [01 Basics](01_basics.md)
 - Hello World
 - Datentypen & Variablen
-  - Build-in Datentypen
-  - Array & Slices
-  - Maps
-- Text Ausgaben
 - Strings
+- Call by Value
+- Text Ausgaben
 - Funktionen
 - Kontrollstrukturen
-  - if {}
-  - for {}
-  - switch {}
 
 ### [02 Dateien](02_dateien.md)
 - Das Pacakge `OS`
@@ -28,7 +23,8 @@
 - Pointer und Slices/Maps
     
 ### [04 Projektstruktur](04_projektstruktur.md)
-- Projektstruktur
+- Gopath
+- Go Toolchain
 - Packages
 
 ### [05 Testing](05_testing.md)
@@ -104,7 +100,6 @@
 - `vendor` Verzeichnis
 - glide
 - Alternativen
-
 
 # Gute Videos
 - [Simplicity is Complicated](https://www.youtube.com/watch?v=rFejpH_tAHM), Rob Pike
