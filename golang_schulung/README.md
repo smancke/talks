@@ -107,7 +107,8 @@
 
 
 # Gute Videos
-- Rob Pike - Simplicity is Complicated
-- Rob Pike - 'Concurrency Is Not Parallelism'
-- Rob Pike - Go Concurrency Patterns
-- Sameer Ajmani - Advanced Go Concurrency Patterns 
+- [Simplicity is Complicated](https://www.youtube.com/watch?v=rFejpH_tAHM), Rob Pike
+- [Concurrency Is Not Parallelism](https://www.youtube.com/watch?v=oV9rvDllKEg), Rob Pike
+- [Go Concurrency Patterns](https://www.youtube.com/watch?v=f6kdp27TYZs), Rob Pike
+- [Advanced Go Concurrency Patterns](https://www.youtube.com/watch?v=QDDwwePbDtw), Sameer Ajmani
+- [Dont Just Check Errors Handle Them Gracefully](https://www.youtube.com/watch?v=lsBF58Q-DnY), Dave Cheney
