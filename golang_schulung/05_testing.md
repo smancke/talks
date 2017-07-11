@@ -1,7 +1,7 @@
 
-## Testen von Go code
+# Testen von Go Code
 
-### Tests
+## Tests
 * Alle Dateien mit der Endung `_test.go` beinhalten testcode
 * `go test <package>`
 * Tests sind Funktionen mit der Signatur: `func Test_*(t *testing.T)`
@@ -19,7 +19,7 @@ func Test_Simple(t *testing.T) {
 }
 ```
 
-### stretchr/testify
+## stretchr/testify
 * Einfache Library mit assertion Funktionen
 * Installieren von Test-Abhängigkeiten mit `go get -t`
 
@@ -37,7 +37,7 @@ func Test_With_Testify(t *testing.T) {
 }
 ```
 
-### Test mehrerer Packages
+## Test mehrerer Packages
 Mehrere Packages können auf einmal getestet werden: `go test package/...`
 
 Beispiel:
@@ -53,7 +53,7 @@ ok      github.com/smancke/guble/server 0.151s  coverage: 83.2% of statements
 ok      github.com/smancke/guble/store  1.295s  coverage: 78.1% of statements
 ```
 
-### Coverage anschauen
+## Coverage anschauen
 Anschauen der Testcoverage mit `go tool cover`
 
 ```shell
@@ -61,7 +61,7 @@ go test -cover -coverprofile cover.out  github.com/smancke/guble/server
 go tool cover -html=cover.out
 ```
 
-### Data Driven Tests
+## Data Driven Tests
 ```
 func Test_Operations(t *testing.T) {
 	tests := []struct {
@@ -94,7 +94,51 @@ func Test_Operations(t *testing.T) {
 }
 ```
 
+## Benchmarks
+
+### Benchmarks: Grundidee
+* Benchmarks sind wie auch die Tests Funktionen, die in den Test-Dateien stehen.
+* Sie haben die Signatur: `func Benchmark_*(b *testing.B)`
+* Der Testcode wird in einer Schleife `b.N` mal wiederholt.
+* Abhängig von der Ausführungszeit führt Go mehrere Tests mit unterschiedlichen Stichproben durch (z.B. 100, 10000, 1000000).
+
+### Benchmarks: Hilfsfunktionen
+Damit Hilfscode nicht mit gemessen wird, kann der Timer explizit gesteuert werden:
+
+* `b.ResetTimer()` - Setz the timer zurück
+* `b.StartTimer()` - (Re)Start des Timers
+* `b.StopTimer()` - Hält den Timer an
+
+### Benchmarks: Beispiel
+
+```go
+func Benchmark_Creation_Of_Goroutines(b *testing.B) {
+	fmt.Printf("testing with %v goroutines\n", b.N)
+	doneChannel := make(chan bool)
+
+	for i := 0; i < b.N; i++ {
+		go doInBackground(doneChannel)
+	}
+
+	for i := 0; i < b.N; i++ {
+		<-doneChannel
+	}
+}
+```
+
+### Benchmarks ausführen
+
+Die Ausführung erfolgt über `go test -bench <regex>`
+
+Beispiel:
+```shell
+go test -bench '.*' goroutine_lots_of_test.go
+```
+
 ## Übung: Taschenrechner Programmes
 
 * Schreibe einen einfachen Konsolen Taschenrechner 
 * Teste die Funktionalität des Rechner-Programmes vollständig.
+
+## Übung: Benchmarking des Key-Value Stores
+Messe die Zeit, die Dein KV-Store braucht um einen Durchlauf von *Schreiben-Speichern-Lesen* durch zu führen.

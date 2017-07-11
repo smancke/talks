@@ -83,7 +83,7 @@ func (ship *Starship) MoveInDirection(vector Point, time int) {
 }
 ```
 
-# Interfaces
+## Interfaces
 * Go kennt keine Vererbung, aber Interfaces.
 * Interfaces folgen dem Duck-Typing Ansatz: Was aussieht wie eine Ente, ist auch eine Ente!
 * Der Consumer legt das Interface fest, nicht der implementierer.
@@ -114,7 +114,7 @@ func Test_Stringer(t *testing.T) {
 }
 ```
 
-# Mocking
+## Mocking
 
 Mocking kann in go nicht dynamisch erfolgen. Mock-Frameworks verlangen eine Mock-Generierung zur Entwicklungszeit. Die Mocks werden dann üblicherweise mit eingecheckt. Z.b. [GoMock](https://github.com/golang/mock)
 
@@ -138,12 +138,12 @@ func ...
 $ go generate .
 ```
 
-# Übungen
+## Übungen
 
-## Übung 3: Key-Value Objekt Orientiert
+### Übung 3: Key-Value Objekt Orientiert
 Baue Deinen KV-Store so um, dass er intern eine Klasse Store verwendet,
 die die Operationen auf den internen Storage abstrahiert.
 
-## Übung 4: Testen
+### Übung 4: Testen
 * Teste die Klasse Store
 * Teste den aufrufenden Code der Klasse Store, gegen ein Mock-Objekt 

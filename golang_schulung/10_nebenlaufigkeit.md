@@ -1,6 +1,6 @@
 # Workshop 3
 
-# Goroutinen
+## Goroutinen
 Goroutinen sind eine leichtgewichtige Alternative zu Theads.
 Sie werden von der Go Runtime auf echte Threads verteilt.
 
@@ -10,7 +10,7 @@ __1 Mio Goroutinen lassen sich in unter 2 Sekunden ausführen.__
 
 (Vgl.: 1 Mio Java Threads: ~40 Sekunden)
 
-## Goroutinen Syntax
+### Goroutinen Syntax
 ```go
 go doInBackground()
 ```
@@ -24,22 +24,22 @@ go func() {
 }()
 ```
     
-## Maximale Threads begrenzen
+### Maximale Threads begrenzen
 Die Anzahl maximal gleichzeitig aktiver Threads kann über 
 `runtime.GOMAXPROCS(n int)` gesetzt werden.
 
 Default ist `runtime.NumCPU()`.
 
-## Sheduling
+### Sheduling
 Die Ausführung einer laufenden Goroutine wird vom Sheduler nur sehr selten unterbrochen.
 Durch ein `runtime.Gosched()`, ein `time.Sleep()` oder blockierende IO Operationen
 wechselt der Sheduler jedoch direkt auf eine andere Goroutine.
 
-# Channel
+## Channel
 
 *Do not communicate by sharing memory; instead, share memory by communicating.*
 
-## Basics
+### Basics
 * Ein Channel ist eine typisierte fifo-Queue mit fester Länge
 * Der Channel kann Daten beliebigen Typs aufnehmen
 * Alle Operationen auf Channel sind robust gegenüber paralleler Zugriffe
@@ -51,7 +51,7 @@ Schreiben in den Channel: `ch <- value`
 Lesen vom Channel: `value <- ch`
 
 
-## Unbuffered Channel
+### Unbuffered Channel
 * Operationen auf einen Channel blockieren
 * Lesen wartet, bis Daten vorliegen
 * Schreiben wartet, bis Daten abgegeben werden können
@@ -92,7 +92,7 @@ fmt.Println(<-ch)
 fmt.Println(<-ch)
 ```
 
-## Schließen eines Channel
+### Schließen eines Channel
 Ein Channel kann geschlossen werden.
 ```go
 close(ch)
@@ -125,7 +125,7 @@ for {
 }
 ```
 
-## Mit range über Channels iterieren
+### Mit range über Channels iterieren
 * Bei einem Channel liefert `range` nur einen Wert zurück.
 * Range liest blockierend, bis der Channel geschlossen wird.
 
@@ -141,7 +141,7 @@ for v := range ch {
 }
 ```
 
-## Select
+### Select
 * Die `select` Anweisung kann verwendet werden um mehrere Channel Operationen in einem durch zu führen.
 * Bei mehreren Case-Zweigen wird der Zweig ausgeführt, der als erster verfübar ist.
 * Sind mehrere Zweige Verfügbar, so ist die Reihenfolge zufällig.
@@ -179,7 +179,7 @@ func sendWithTimeout() {
 }
 ```
 
-## Channel Tricks: Exit on Signal
+### Channel Tricks: Exit on Signal
 ```go
 func waitForTermination(callback func()) {
 	sigc := make(chan os.Signal)
@@ -190,7 +190,7 @@ func waitForTermination(callback func()) {
 }
 ```
 
-## Channel Tricks: Close als Wait-Broadcast
+### Channel Tricks: Close als Wait-Broadcast
 Da Lesen von einem geschlossenen Channel direct zurück kehrt, kann dies als
 Broadcast Signal verwendet werden.
 
@@ -214,7 +214,7 @@ func main() {
 }
 ```
 
-## Channel Tricks: Channel mit Callback
+### Channel Tricks: Channel mit Callback
 Wenn auf eine Anfrage an einen Channel eine Antwort erwartet wird kann es praktisch sein,
 einen Callback Channel mit zu übergeben.
 
@@ -232,10 +232,10 @@ func echoRoutine(requestChannel chan request) {
 }
 ```
 
-# Das `sync` Package
+## Das `sync` Package
 Das `sync` Package enthält kleine Helper für Concurrency Aufgaben.
 
-## Mutexes
+### Mutexes
 Zum expliziten Locken des Zugriffes auf Daten kann ein  Mutex verwendet werden.
 
 Exclusiver Lock:
@@ -254,7 +254,7 @@ rwmutex.RUnlock()
 rwmutex.Unlock()
 ```
 
-## Wait Group
+### Wait Group
 Eine Wait Group kann verwendet werden um auf eine Menge von Jobs zu warten:
 ```go
 func doInBackground(waitGroup *sync.WaitGroup) {
@@ -276,54 +276,11 @@ func main() {
 }
 ```
 
-# Benchmarks
-
-## Benchmarks: Grundidee
-* Benchmarks sind wie auch die Tests Funktionen, die in den Test-Dateien stehen.
-* Sie haben die Signatur: `func Benchmark_*(b *testing.B)`
-* Der Testcode wird in einer Schleife `b.N` mal wiederholt.
-* Abhängig von der Ausführungszeit führt Go mehrere Tests mit unterschiedlichen Stichproben durch (z.B. 100, 10000, 1000000).
-
-## Benchmarks: Hilfsfunktionen
-Damit Hilfscode nicht mit gemessen wird, kann der Timer explizit gesteuert werden:
-
-* `b.ResetTimer()` - Setz the timer zurück
-* `b.StartTimer()` - (Re)Start des Timers
-* `b.StopTimer()` - Hält den Timer an
-
-## Benchmarks: Beispiel
-
-```go
-func Benchmark_Creation_Of_Goroutines(b *testing.B) {
-	fmt.Printf("testing with %v goroutines\n", b.N)
-	doneChannel := make(chan bool)
-
-	for i := 0; i < b.N; i++ {
-		go doInBackground(doneChannel)
-	}
-
-	for i := 0; i < b.N; i++ {
-		<-doneChannel
-	}
-}
-```
-
-## Benchmarks ausführen
-
-Die Ausführung erfolgt über `go test -bench <regex>`
-
-Beispiel:
-```shell
-go test -bench '.*' goroutine_lots_of_test.go
-```
-
 # Übungen
 
-## Übung 5a: Concurrent Key-Value Store Access
+## Übung: Concurrent Key-Value Store Access
 Sichere Deine Key-Value Store Klasse so ab, dass sie parallelem Zugriff Stand hält.
 
-## Übung 5b: Concurrency Test
+## Übung: Concurrency Test
 Teste die Klasse mit vielen parallelen Reads und Writes.
 
-## Übung 6: Benchmarking des Key-Value Stores
-Messe die Zeit, die Dein KV-Store braucht um einen Durchlauf von *Schreiben-Speichern-Lesen* durch zu führen.

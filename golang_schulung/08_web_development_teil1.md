@@ -118,7 +118,7 @@ Das File System erfolgt über eine einfache Abstraktion,
 so dass auch einfach ein Daten aus einem anderen Storage
 zurück geliefert werden können. (Gutes Beispiel für Ducktyping)
 
-### `http.Client`
+## `http.Client`
 Auch der Http-Client funktioniert denkbar einfach.
 
 ```go
@@ -142,7 +142,7 @@ type Response struct {
 }
 ```
 
-### Package `http/httptest`
+## Package `http/httptest`
 
 #### ResponseRecorder
 Zum einfachen Testen von Handlern.

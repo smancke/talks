@@ -1,55 +1,9 @@
-# Workshop 7 - Verschiedenes
+# Libraries und Packages
 
-## Golang im Docker Container
-
-### Der einfache Weg: `golang:onbuild`
-
-Dockerfile
-```
-FROM golang:1.6.0-onbuild
-```
-
-```bash
-docker build -t google-query .
-```
-
-Aber, das resultierende image ist riesig:
-```
-REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
-google-query                latest              8d9199bf52f8        7 seconds ago       766.1 MB
-```
-
-### Minimal: Nur das GO binary
-
-1. Statisch linken:
-```bash
-# Disable cgo
-CGO_ENABLED=0 go build google_query.go
-```
-
-2. Docker images bauen
-```
-FROM scratch
-
-COPY google_query /google_query
-COPY ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-
-CMD ["/google_query"]
-```
-
-```
-docker images
-REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
-google-query-onbuild        latest              fbe6d751829b        2 minutes ago       766.3 MB
-google-query-minimal        latest              c8cf922ef6f1        12 minutes ago      9.328 MB
-```
-
-## Libraries und Packages
-
-### awesome-go
+## awesome-go
 https://github.com/avelino/awesome-go
 
-### Package `time`
+## Package `time`
 
 Type `Duration`: https://golang.org/pkg/time/#Duration
 ```
@@ -103,11 +57,70 @@ const (
     func (t Time) Format(layout string) string
 ```
 
-## Go Bindata
+## Argumente und Umgebungsvariablen
 
-TODO ..
+### Package `flag`
 
-### Argumente und Umgebungsvariablen
+Komandozeilenparameter können über das `flag` Package eingelesen werden.
+
+Beispiel einer Anwendungskonfiguration:
+```
+
+func DefaultConfig() *Config {
+        return &Config{
+                Host:         "localhost",
+                Port:         8080,
+        }
+}                                                                                                                                                                          
+                                                                                                                                                                           
+const envPrefix = "MYAPP_"                                                                                                                                               
+
+type Config struct {
+        Host         string
+        Port         int
+}
+
+// ConfigureFlagSet adds all flags to the supplied flag set
+func (c *Config) ConfigureFlagSet(f *flag.FlagSet) {
+        f.StringVar(&c.Host, "host", c.Host, "The host to listen on")
+        f.IntVar(&c.Port, "port", c.Port, "The port to listen on")
+}
+
+// ReadConfig from the commandline args
+func ReadConfig() *Config {
+        c, err := readConfig(flag.NewFlagSet(os.Args[0], flag.ExitOnError), os.Args[1:])
+        if err != nil {
+                // should never happen, because of flag default policy ExitOnError
+                panic(err)
+        }
+        return c
+}
+
+func readConfig(f *flag.FlagSet, args []string) (*Config, error) {
+        config := DefaultConfig()
+        config.ConfigureFlagSet(f)
+
+        // prefer environment settings
+        f.VisitAll(func(f *flag.Flag) {
+                if val, isPresent := os.LookupEnv(envName(f.Name)); isPresent {
+                        f.Value.Set(val)
+                }
+        })
+
+        err := f.Parse(args)
+        if err != nil {
+                return nil, err
+        }
+
+        return config, err
+}
+
+func envName(flagName string) string {
+        return envPrefix + strings.Replace(strings.ToUpper(flagName), "-", "_", -1)
+}
+```
+
+### Anotations basierte Parameter
 
 ```
 import (
@@ -146,8 +159,8 @@ func loadArgs() Args {
 }
 ```
 
-### Logging
-#### Package `log`
+## Logging
+### Package `log`
 Einfaches, aber limitiertes Logging Framework in der Standard Library.
 
 ```
@@ -167,7 +180,7 @@ Einfaches, aber limitiertes Logging Framework in der Standard Library.
     func Println(v ...interface{})
 ```
     
-#### Sirupsen/logrus
+### Sirupsen/logrus
 https://github.com/Sirupsen/logrus
 
 - Strukturiertes Logging
@@ -178,43 +191,9 @@ https://github.com/Sirupsen/logrus
 - Replacement für `log` Package
 - Viele Log Backends
 
-### Bolt
+## Bolt
 Bolt ist eine library für einen Key-Value Store: https://github.com/boltdb/bolt
 
 - Buckets und Sub Buckets
 - Transactions
 - Prefix & Range Scans
-
-### UI Libraries
-
-#### QT/QML
-https://github.com/go-qml/qml
-
-#### GTK
-https://mattn.github.io/go-gtk/
-
-## Coole Anwendungen, in Golang
-
-### Docker
-https://github.com/docker/docker
-
-### Consul
-https://github.com/hashicorp/consul
-
-### Raft library
-https://github.com/hashicorp/raft
-
-### Grafana & Influx DB
-https://github.com/grafana/grafana
-https://influxdata.com/
-
-## Rundgang durch Guble
-
-https://github.com/smancke
-
-
-## Gute Videos
-- Rob Pike - Simplicity is Complicated
-- Rob Pike - 'Concurrency Is Not Parallelism'
-- Rob Pike - Go Concurrency Patterns
-- Sameer Ajmani - Advanced Go Concurrency Patterns 
