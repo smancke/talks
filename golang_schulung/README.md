@@ -10,18 +10,23 @@
 - Text Ausgaben
 - Funktionen
 - Kontrollstrukturen
+- Übung: Multiplikationstabelle
 
 ### [02 Dateien](02_dateien.md)
-- Das Pacakge `OS`
+- Das Package `OS`
 - Schreiben in eine Datei
 - Exec Beispiel
+- Übung: cat Befehl
+- Übung: wc Befehl
+- Übung: tac Befehl
 
 ### [03 Structs und Pointer](03_structs_und_pointer.md)
 - Structs
 - Pointer
 - Pointer und Structs
 - Pointer und Slices/Maps
-    
+- Übung: Key-Value Store
+
 ### [04 Projektstruktur](04_projektstruktur.md)
 - Gopath
 - Go Toolchain
@@ -34,7 +39,8 @@
 - Coverage anschauen
 - Data Driven Tests
 - Benchmarks
-- Übung: Taschenrechner Programmes
+- Übung: Taschenrechner Programm
+- Übung: Benchmarking des Key-Value Stores
 
 ### [06 Weitere Grundlagen](06_weitere_grundlagen.md)
 - defer
@@ -49,6 +55,8 @@
 - Überschreiben
 - Interfaces
 - Mocking
+- Übung: Key-Value Objekt Orientiert
+- Übung: Testen mit Mocks
 
 ## Web Development
 

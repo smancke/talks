@@ -144,6 +144,6 @@ $ go generate .
 Baue Deinen KV-Store so um, dass er intern eine Klasse Store verwendet,
 die die Operationen auf den internen Storage abstrahiert.
 
-### Übung: Testen
+### Übung: Testen mit Mocks
 * Teste die Klasse Store
 * Teste den aufrufenden Code der Klasse Store, gegen ein Mock-Objekt 

@@ -1,7 +1,7 @@
 
 # 02 Dateien
 
-## Das Pacakge `OS`
+## Das Package `OS`
 [https://golang.org/pkg/os/](https://golang.org/pkg/os/)
 ```go
 var Args []string     // Commandline arguments
