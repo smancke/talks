@@ -11,16 +11,16 @@ func main() {
 		fmt.Printf("%v: %v\n", i, colors[i])
 	}
 
-	// iterate
-	for i, color := range colors {
-		fmt.Printf("%v: %v\n", i, color)
-	}
-
 	// while
 	i := 0
 	for i < len(colors) {
 		fmt.Printf("%v: %v\n", i, colors[i])
 		i++
+	}
+
+	// iterate
+	for i, color := range colors {
+		fmt.Printf("%v: %v\n", i, color)
 	}
 
 	// while true
