@@ -23,7 +23,7 @@ func main() {
 func readJsonObject(file string) (map[string]string, error) {
 	data, err := readFile(file)
 	if err != nil {
-		return nil, errors.Wrapf(err, "read file %s", file)
+		return nil, errors.Wrapf(err, "read json file %s", file)
 	}
 
 	o := map[string]string{}
