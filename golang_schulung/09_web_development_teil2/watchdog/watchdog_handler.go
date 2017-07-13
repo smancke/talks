@@ -48,9 +48,9 @@ func (wd *Watchdog) watch() {
 		}
 
 		if wd.hasError {
-			failCounter = 0
 			fmt.Printf("watchdog vaid again\n")
 		}
+		failCounter = 0
 		wd.hasError = false
 	}
 }
