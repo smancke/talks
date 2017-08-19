@@ -3,13 +3,30 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"sync/atomic"
 	"time"
 )
 
 type Watchdog struct {
 	watchUrl string
 	next     http.Handler
-	hasError bool
+	error    *atomic.Value
+}
+
+func NewWatchdog() *Watchdog {
+	wd := &Watchdog{}
+	wd.error = &atomic.Value{}
+	return wd
+}
+
+func (wd *Watchdog) setError(val bool) {
+	wd.error.Store(val)
+}
+
+func (wd *Watchdog) hasError() bool {
+	v := wd.error.Load()
+	b, _ := v.(bool)
+	return b
 }
 
 func (wd *Watchdog) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +49,7 @@ func (wd *Watchdog) watch() {
 			fmt.Printf("can't reach server (%v) %q: %v\n", failCounter, wd.watchUrl, err)
 			if failCounter > 3 {
 				fmt.Printf("serving error page\n")
-				wd.hasError = true
+				wd.hasError() = true
 			}
 			continue
 		}
@@ -42,15 +59,15 @@ func (wd *Watchdog) watch() {
 			fmt.Printf("server unhealthy (%v): got code %v\n", failCounter, resp.StatusCode)
 			if failCounter > 3 {
 				fmt.Printf("serving error page\n")
-				wd.hasError = true
+				wd.hasError() = true
 			}
 			continue
 		}
 
-		if wd.hasError {
+		if wd.hasError() {
 			fmt.Printf("watchdog vaid again\n")
 		}
 		failCounter = 0
-		wd.hasError = false
+		wd.setError(false)
 	}
 }

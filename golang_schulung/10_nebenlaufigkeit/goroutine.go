@@ -15,7 +15,7 @@ func doInBackground() {
 
 func main() {
 
-	runtime.GOMAXPROCS(1)
+	runtime.GOMAXPROCS(4)
 
 	go doInBackground()
 

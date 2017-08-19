@@ -67,13 +67,14 @@ func readConfig(f *flag.FlagSet, args []string) (*Config, error) {
 	config := DefaultConfig()
 	config.ConfigureFlagSet(f)
 
-	// prefer environment settings
+	// default with environment settings
 	f.VisitAll(func(f *flag.Flag) {
 		if val, isPresent := os.LookupEnv(envName(f.Name)); isPresent {
 			f.Value.Set(val)
 		}
 	})
 
+	// prefer cmd args
 	err := f.Parse(args)
 	if err != nil {
 		return nil, err

@@ -19,12 +19,12 @@ func main() {
 
 func modifyMap() {
 	for i := 0; i < 100; i++ {
-		aMutex.Lock()
+		//aMutex.Lock()
 		key := randSeq(10)
 		value := randSeq(10)
 		aMap[key] = value
 		delete(aMap, key)
-		aMutex.Unlock()
+		//aMutex.Unlock()
 	}
 }
 

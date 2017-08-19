@@ -18,6 +18,5 @@ import "unsafe"
 func main() {
 	cs := C.CString("Hello from stdio")
 	C.myprint(cs)
-	C.printf(cs)
 	C.free(unsafe.Pointer(cs))
 }

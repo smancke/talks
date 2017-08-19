@@ -18,6 +18,10 @@ func main() {
 	go startWorker("Worker 2", ch)
 	go startWorker("Worker 3", ch)
 
+	time.Sleep(5 * time.Second)
+
+	fmt.Println("start now")
+
 	close(ch)
 
 	time.Sleep(time.Millisecond)

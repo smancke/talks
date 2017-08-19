@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 func main() {
@@ -20,6 +21,7 @@ func main() {
 
 func saySomething() {
 	for {
-		fmt.Println("i want to say something")
+		//fmt.Println("i want to say something")
+		time.Sleep(time.Millisecond)
 	}
 }
