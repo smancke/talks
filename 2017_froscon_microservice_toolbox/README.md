@@ -5,7 +5,7 @@ Microservices
 
 * Independent Components and Self Contained Systems
 * Independent teams develop and ship services
-* Vertical Architecture, following the bounding contextes of your domain
+* Vertical Architecture, following the bounding contexts of your domain
 * Loose Coupling
 * Develop for replacement (not for reuse)
 
@@ -89,7 +89,7 @@ Caddy is a modern and easy to use webserver, written in golang.
 
 ![Caddy](images/caddy.png#width: 80%; display: block; margin-left: auto; margin-right: auto; margin-top: 30px; margin-bottom: 30px;)
 
-* Build in Let's Encrypt support
+* Built in Let's Encrypt support
 * Reverse proxy and load balancing
 * JWT login and access control
 * Git checkout
@@ -217,7 +217,7 @@ Logging example
       ..
     }
 
-Avoid the Monolyth!
+Avoid the Monolith!
 ====================================
 ![Murten Monolith](images/murten-monolith.jpg#width:1024px; margin-left: -20px;)
 
@@ -323,13 +323,13 @@ Classical sessions carry a lot of problems with them:
 
 __Solution:__ Use a client side crypto token
 
-JSON Web Token (JWT) ist a standard ([rfc7519](https://tools.ietf.org/html/rfc7519)) for signed JSON tokens.
+JSON Web Token (JWT) is a standard ([rfc7519](https://tools.ietf.org/html/rfc7519)) for signed JSON tokens.
 
 ![JWT Logo](images/jwt-logo.svg#float: right; margin-right: 130px; margin-top: 20px; width: 160px;)
 
 * JSON payload + signature
 * Can be used as cookie or HTTP header
-* Symetric and asymetric algorithms
+* Symmetric and asymmetric algorithms
 * APIs for every language
 
 
@@ -341,7 +341,7 @@ Loginsrv
 __Can be used as:__
 
 * Standalone microservice
-* Socker container
+* Docker container
 * Golang library
 * [Caddyserver](http://caddyserver.com/) plugin
 
@@ -388,7 +388,7 @@ Data Replication
 >
 > -- Werner Vogels, CTO Amazon
 
-But, how handle data Replication?
+But, how to handle data replication?
 
 ![Kafka](images/kafka-logo.png)
 
