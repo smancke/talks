@@ -112,13 +112,13 @@ Zero-conf load balancing HTTP(S) and TCP router
 ![Fabio](images/fabio.png#width: 70%;)
 
 * Fast and stable
-* Services discovery via consul
+* Services discovery via consul and gliderlabs/registrator
 
 
 Routing with Traefic
 ====================================
 
-* Several Configuration backends
+* Several configuration backends
 * Let’s Encrypt support
 * Circuit breaker and retry mechanism
 
