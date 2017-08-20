@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+
+    loginsrv:
+        image: tarent/loginsrv
+        environment:
+            LOGINSRV_SIMPLE: bob=secret
+            LOGINSRV_GITHUB: client_id=ef75da60151cd37e5a88,client_secret=b6f4a0d88ea39244a736ec961b16757949d24c5c
+        deploy:
+            labels:
+                - "traefik.port=8080"
+                - "traefik.frontend.rule=Host:froscon.mancke.io;PathPrefix:/login"
+                    
+
+networks:
+  default:
+    external:
+      name: traefik_default
+      

@@ -1,0 +1,12 @@
+
+https://demo-registry.mancke.io http://demo-registry.mancke.io
+
+root /webroot
+
+tls s.mancke@tarent.de
+
+proxy /v2 registry:5000 {
+      transparent
+}
+
+

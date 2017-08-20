@@ -1,0 +1,30 @@
+
+https://froscon.mancke.io http://froscon.mancke.io {
+
+    tls s.mancke@tarent.de
+
+    proxy /content content
+
+    proxy /blog wordpress {
+        without /blog
+        transparent
+    }
+    
+    proxy /wp-admin wordpress {
+        transparent
+    }
+
+    root /webroot/2017_froscon_microservice_toolbox/
+    git github.com/smancke/talks {
+        path ../
+    	branch gh-pages
+    }
+}
+
+https://froscon-static.mancke.io http://froscon-static.mancke.io {
+
+    tls self_signed
+
+    proxy / static
+    
+}

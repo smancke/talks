@@ -1,0 +1,13 @@
+version: '3.2'
+
+services:
+    content:
+        image: demo-registry.mancke.io/content
+        deploy:
+            mode: replicated
+            replicas: 2
+            placement:
+                constraints:
+                    - node.role != manager
+        ports:
+            - 80:80

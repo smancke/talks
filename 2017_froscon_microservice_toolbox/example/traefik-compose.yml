@@ -1,0 +1,56 @@
+version: '3.2'
+
+services:
+
+    traefik:
+        image: traefik
+        command: --docker --docker.swarmmode --docker.domain=mancke.io --docker.watch --web 
+        ports:
+            - 80:80 
+            - 8080:8080
+            - 443:443
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints:
+                    - node.role == manager
+                    
+    content:
+        image: demo-registry.mancke.io/content
+        deploy:
+            labels:
+                - "traefik.port=80"
+                - "traefik.frontend.rule=Host:froscon.mancke.io"
+            mode: replicated
+            replicas: 2
+            placement:
+                constraints:
+                    - node.role != manager
+
+    wordpress:
+        image: wordpress
+        deploy:
+            labels:
+                - "traefik.port=80"
+                - "traefik.frontend.rule=Host:froscon.mancke.io;PathPrefix:/blog,/wp-admin"
+            mode: replicated
+            replicas: 2
+            placement:
+                constraints:
+                    - node.role != manager
+
+
+    static:
+        image: nginx
+        deploy:
+            labels:
+                - "traefik.port=80"
+                - "traefik.frontend.rule=Host:froscon-static.mancke.io"
+            mode: replicated
+            replicas: 2
+            placement:
+                constraints:
+                    - node.role != manager
