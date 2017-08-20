@@ -4,10 +4,10 @@ Microservices
 ## What Microservices mean to me
 
 * Independent Components and Self Contained Systems
+* Independent teams develop and ship services
 * Vertical Architecture, following the bounding contextes of your domain
 * Loose Coupling
 * Develop for replacement (not for reuse)
-* Independent teams develop and ship services
 
 My Default Architecture
 ====================================
@@ -21,12 +21,12 @@ Challenges
 * Service Discovery
 * Edge-Services and HTTP Routing
 * Centralized Logging
-* Health-Checks and Monitoring
+* Health checks and monitoring
 
 ## Application
 * UI Composition
-* Decentralized Login-Management
-* Data Replication
+* Decentralized login management
+* Data replication
 * A huge number of small services
 
 Docker Deployment
@@ -37,12 +37,12 @@ Docker Deployment
 ## Every service is dockerized!
 
 * All services are handled the same way
-* Minimal requirements for the host installation
+* Minimal requirements for the host setup
 
 Docker Swarm
 ====================================
 
-Multiple orchestration solutions are out there ..
+Multiple orchestration solutions are out there ...
 
 ![Docker](images/docker-swarm.jpg#float: left; margin-right: 50px;)
 
@@ -50,7 +50,7 @@ Multiple orchestration solutions are out there ..
 
 Simple to setup and use
 
-Sufficient for most use cases
+Sufficient for most usecases
 
 Easy local development and deployment
 
@@ -60,14 +60,14 @@ DNS and Docker Networking
 ## Don't make things complicated
 
 * No complicated service registry!
-* No IPs in config files!
+* No IPs in config-files!
 * No special port magic!
 
 ## Swarm gives you
-* Overlay Networks
+* Overlay networks
 * DNS
-* Load Balancing
-* Health Checks
+* Load balancing
+* Health checks
 
 Swarm Demo
 ====================================
@@ -77,7 +77,7 @@ Swarm Demo
 HTTP Termination and Routing
 ====================================
 
-HTTP router (aka edge service)
+HTTP Router (aka edge service)
 
 ![Routing](images/routing.png#width: 80%; display: block; margin-left: auto; margin-right: auto; margin-top: 80px;)
 
@@ -85,11 +85,11 @@ HTTP router (aka edge service)
 Routing with Caddyserver
 ====================================
 
-Caddy is a modern and simple to use webserver, written in golang.
+Caddy is a modern and easy to use webserver, written in golang.
 
 ![Caddy](images/caddy.png#width: 80%; display: block; margin-left: auto; margin-right: auto; margin-top: 30px; margin-bottom: 30px;)
 
-* Build in let's encrypt support
+* Build in Let's Encrypt support
 * Reverse proxy and load balancing
 * JWT login and access control
 * Git checkout
@@ -97,12 +97,24 @@ Caddy is a modern and simple to use webserver, written in golang.
 * Extendable with golang plugins
 * HTTP2 server push
 
-
 Caddy Demo
 ====================================
 
-![Demo](images/demo.png)
-    
+![Demo](images/demo.png)    
+
+Routing with fabio
+====================================
+
+[https://github.com/fabiolb/fabio](fabio)
+
+Zero-conf load balancing HTTP(S) and TCP router
+
+![Fabio](images/fabio.png#width: 70%;)
+
+* Fast and stable
+* Services discovery via consul
+
+
 Routing with Traefic
 ====================================
 
@@ -300,7 +312,7 @@ Zalando has a component with similar functionality:
 [Zalando Tailor](https://github.com/zalando/tailor)
 
 
-Authentication
+Authentication with JWT
 ====================================
 
 Classical sessions carry a lot of problems with them:
@@ -328,10 +340,10 @@ Loginsrv
 
 __Can be used as:__
 
-* standalone microservice
-* docker container
-* golang library
-* [caddyserver](http://caddyserver.com/) plugin
+* Standalone microservice
+* Socker container
+* Golang library
+* [Caddyserver](http://caddyserver.com/) plugin
 
 __Backends:__
 
