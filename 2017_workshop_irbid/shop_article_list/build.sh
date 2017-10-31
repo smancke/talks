@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+
+go build .
+docker build -t shop-article-list .

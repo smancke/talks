@@ -1,0 +1,14 @@
+version: '2.2'
+
+services:
+    edge_service:
+        image: edge_service
+        ports:
+            - "80:80"
+            
+    cart:
+        image: cart
+
+
+    shop-article-list:
+        image: shop-article-list

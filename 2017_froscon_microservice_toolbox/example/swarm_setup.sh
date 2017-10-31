@@ -2,7 +2,9 @@
 
 
 CREATE_OPTS="--driver digitalocean --digitalocean-access-token $DIGITALOCEAN_ACCESS_TOKEN --digitalocean-image ubuntu-17-04-x64 --digitalocean-region fra1"
-WORKER_COUNT=3
+
+
+#CREATE_OPTS="--driver virtualbox --virtualbox-memory=1024 --engine-insecure-registry=192.168.99.104"
 
 #
 # create manager and init swarm
